@@ -1,0 +1,265 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F18855 ]
+[d frameptr 6 ]
+"10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"102 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
+[v _main main `(v  1 e 1 0 ]
+"188
+[v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
+"217
+[v _drive drive `(v  1 e 1 0 ]
+"236
+[v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
+"251
+[v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
+"266
+[v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
+"281
+[v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
+"296
+[v _CreateBreak CreateBreak `(v  1 e 1 0 ]
+"309
+[v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
+"322
+[v _myFunction myFunction `II(v  1 e 1 0 ]
+[s S243 . 1 `uc 1 INTEDG 1 0 :1:0 
+`uc 1 . 1 0 :5:1 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"364 C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC16F1xxxx_DFP/1.19.363/xc8\pic\include\proc\pic16f18855.h
+[u S248 . 1 `S243 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES248  1 e 1 @11 ]
+[s S43 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+`uc 1 TRISA7 1 0 :1:7 
+]
+"608
+[u S52 . 1 `S43 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES52  1 e 1 @17 ]
+[s S149 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"732
+[u S158 . 1 `S149 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES158  1 e 1 @19 ]
+[s S85 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 LATA3 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+`uc 1 LATA6 1 0 :1:6 
+`uc 1 LATA7 1 0 :1:7 
+]
+"794
+[u S94 . 1 `S85 1 . 1 0 ]
+[v _LATAbits LATAbits `VES94  1 e 1 @22 ]
+"3508
+[v _RCREG RCREG `VEuc  1 e 1 @281 ]
+[s S319 . 1 `uc 1 TX1REG 1 0 :8:0 
+]
+"3576
+[u S321 . 1 `S319 1 . 1 0 ]
+[v _TX1REGbits TX1REGbits `VES321  1 e 1 @282 ]
+[s S211 . 1 `uc 1 SP1BRGL 1 0 :8:0 
+]
+"3641
+[u S213 . 1 `S211 1 . 1 0 ]
+[v _SP1BRGLbits SP1BRGLbits `VES213  1 e 1 @283 ]
+[s S222 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADDEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"3768
+[u S231 . 1 `S222 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES231  1 e 1 @285 ]
+[s S127 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 SENDB 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"3948
+[u S136 . 1 `S127 1 . 1 0 ]
+[v _TX1STAbits TX1STAbits `VES136  1 e 1 @286 ]
+[s S106 . 1 `uc 1 ABDEN 1 0 :1:0 
+`uc 1 WUE 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 BRG16 1 0 :1:3 
+`uc 1 SCKP 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 RCIDL 1 0 :1:6 
+`uc 1 ABDOVF 1 0 :1:7 
+]
+"4136
+[u S115 . 1 `S106 1 . 1 0 ]
+[v _BAUD1CONbits BAUD1CONbits `VES115  1 e 1 @287 ]
+[s S301 . 1 `uc 1 SSP1IF 1 0 :1:0 
+`uc 1 BCL1IF 1 0 :1:1 
+`uc 1 SSP2IF 1 0 :1:2 
+`uc 1 BCL2IF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+]
+"21120
+[u S308 . 1 `S301 1 . 1 0 ]
+[v _PIR3bits PIR3bits `VES308  1 e 1 @1807 ]
+[s S256 . 1 `uc 1 SSP1IE 1 0 :1:0 
+`uc 1 BCL1IE 1 0 :1:1 
+`uc 1 SSP2IE 1 0 :1:2 
+`uc 1 BCL2IE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+]
+"21542
+[u S263 . 1 `S256 1 . 1 0 ]
+[v _PIE3bits PIE3bits `VES263  1 e 1 @1817 ]
+[s S170 . 1 `uc 1 RXPPS0 1 0 :1:0 
+`uc 1 RXPPS1 1 0 :1:1 
+`uc 1 RXPPS2 1 0 :1:2 
+`uc 1 RXPPS3 1 0 :1:3 
+`uc 1 RXPPS4 1 0 :1:4 
+]
+"31583
+[s S176 . 1 `uc 1 RXPPS 1 0 :5:0 
+]
+[u S178 . 1 `S170 1 . 1 0 `S176 1 . 1 0 ]
+[v _RXPPSbits RXPPSbits `VES178  1 e 1 @3787 ]
+"32720
+[v _RC5PPS RC5PPS `VEuc  1 e 1 @3877 ]
+[s S64 . 1 `uc 1 ANSA0 1 0 :1:0 
+`uc 1 ANSA1 1 0 :1:1 
+`uc 1 ANSA2 1 0 :1:2 
+`uc 1 ANSA3 1 0 :1:3 
+`uc 1 ANSA4 1 0 :1:4 
+`uc 1 ANSA5 1 0 :1:5 
+`uc 1 ANSA6 1 0 :1:6 
+`uc 1 ANSA7 1 0 :1:7 
+]
+"32887
+[u S73 . 1 `S64 1 . 1 0 ]
+"32887
+"32887
+[v _ANSELAbits ANSELAbits `VES73  1 e 1 @3896 ]
+[s S190 . 1 `uc 1 ANSC0 1 0 :1:0 
+`uc 1 ANSC1 1 0 :1:1 
+`uc 1 ANSC2 1 0 :1:2 
+`uc 1 ANSC3 1 0 :1:3 
+`uc 1 ANSC4 1 0 :1:4 
+`uc 1 ANSC5 1 0 :1:5 
+`uc 1 ANSC6 1 0 :1:6 
+`uc 1 ANSC7 1 0 :1:7 
+]
+"34127
+[u S199 . 1 `S190 1 . 1 0 ]
+"34127
+"34127
+[v _ANSELCbits ANSELCbits `VES199  1 e 1 @3918 ]
+"76 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
+[v _currentInput currentInput `i  1 e 2 0 ]
+"77
+[v _inputStage inputStage `i  1 e 2 0 ]
+"79
+[v _GetUserDataCommand GetUserDataCommand `[6]uc  1 e 6 0 ]
+"82
+[v _TurnLeftCommand TurnLeftCommand `[10]uc  1 e 10 0 ]
+"83
+[v _TurnRightCommand TurnRightCommand `[10]uc  1 e 10 0 ]
+"84
+[v _MoveForwardCommand MoveForwardCommand `[10]uc  1 e 10 0 ]
+"85
+[v _MoveBackwardCommand MoveBackwardCommand `[10]uc  1 e 10 0 ]
+"86
+[v _Break Break `[10]uc  1 e 10 0 ]
+[s S22 controller 22 `i 1 rightX 2 0 `i 1 rightY 2 2 `i 1 leftY 2 4 `i 1 leftX 2 6 `i 1 switchA 2 8 `i 1 switchB 2 10 `i 1 switchC 2 12 `i 1 switchD 2 14 `i 1 potentionmeterA 2 16 `i 1 potentionmeterB 2 18 `i 1 temp 2 20 ]
+"91
+[v _controls controls `S22  1 e 22 0 ]
+[s S34 command 14 `i 1 sendLimit 2 0 `i 1 sendIt 2 2 `i 1 sendId 2 4 `*.4uc 1 toSend 1 6 `i 1 receiveIt 2 7 `i 1 receiveLimit 2 9 `i 1 receiveId 2 11 `uc 1 done 1 13 ]
+"92
+[v _currentCommand currentCommand `S34  1 e 14 0 ]
+"102
+[v _main main `(v  1 e 1 0 ]
+{
+"186
+} 0
+"217
+[v _drive drive `(v  1 e 1 0 ]
+{
+"234
+} 0
+"236
+[v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
+{
+[v CreateTurnRightCommmand@pwm pwm `ui  1 p 2 0 ]
+"249
+} 0
+"251
+[v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
+{
+[v CreateTurnLeftCommmand@pwm pwm `ui  1 p 2 0 ]
+"264
+} 0
+"266
+[v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
+{
+[v CreateMoveForwardCommmand@pwm pwm `ui  1 p 2 0 ]
+"279
+} 0
+"281
+[v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
+{
+[v CreateMoveBackwardCommmand@pwm pwm `ui  1 p 2 0 ]
+"294
+} 0
+"309
+[v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
+{
+"319
+} 0
+"296
+[v _CreateBreak CreateBreak `(v  1 e 1 0 ]
+{
+"307
+} 0
+"322
+[v _myFunction myFunction `II(v  1 e 1 0 ]
+{
+"324
+[v myFunction@input input `i  1 a 2 7 ]
+"348
+} 0
+"188
+[v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
+{
+[v GetControllerInput@input input `i  1 p 2 0 ]
+"215
+} 0
