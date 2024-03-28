@@ -11,34 +11,42 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"103 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
+"109 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
 [v _main main `(v  1 e 1 0 ]
-"189
+"203
 [v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
-"218
+"232
 [v _drive drive `(v  1 e 1 0 ]
-"237
+"251
 [v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
-"252
+"266
 [v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
-"267
+"281
 [v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
-"282
+"296
 [v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
-"297
+"311
 [v _CreateBreak CreateBreak `(v  1 e 1 0 ]
-"310
+"324
 [v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
-"323
+"338
+[v _SetUpPumpArm SetUpPumpArm `(v  1 e 1 0 ]
+"349
+[v _SetUpPump SetUpPump `(v  1 e 1 0 ]
+"359
+[v _MovePumpArm MovePumpArm `(v  1 e 1 0 ]
+"372
+[v _ActivatePump ActivatePump `(v  1 e 1 0 ]
+"382
 [v _myFunction myFunction `II(v  1 e 1 0 ]
-[s S243 . 1 `uc 1 INTEDG 1 0 :1:0 
+[s S251 . 1 `uc 1 INTEDG 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
 "364 C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/PIC16F1xxxx_DFP/1.19.363/xc8\pic\include\proc\pic16f18855.h
-[u S248 . 1 `S243 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES248  1 e 1 @11 ]
+[u S256 . 1 `S251 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES256  1 e 1 @11 ]
 [s S43 . 1 `uc 1 TRISA0 1 0 :1:0 
 `uc 1 TRISA1 1 0 :1:1 
 `uc 1 TRISA2 1 0 :1:2 
@@ -51,7 +59,19 @@
 "608
 [u S52 . 1 `S43 1 . 1 0 ]
 [v _TRISAbits TRISAbits `VES52  1 e 1 @17 ]
-[s S149 . 1 `uc 1 TRISC0 1 0 :1:0 
+[s S319 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"670
+[u S328 . 1 `S319 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES328  1 e 1 @18 ]
+[s S157 . 1 `uc 1 TRISC0 1 0 :1:0 
 `uc 1 TRISC1 1 0 :1:1 
 `uc 1 TRISC2 1 0 :1:2 
 `uc 1 TRISC3 1 0 :1:3 
@@ -61,8 +81,8 @@
 `uc 1 TRISC7 1 0 :1:7 
 ]
 "732
-[u S158 . 1 `S149 1 . 1 0 ]
-[v _TRISCbits TRISCbits `VES158  1 e 1 @19 ]
+[u S166 . 1 `S157 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES166  1 e 1 @19 ]
 [s S85 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
@@ -75,19 +95,31 @@
 "794
 [u S94 . 1 `S85 1 . 1 0 ]
 [v _LATAbits LATAbits `VES94  1 e 1 @22 ]
+[s S361 . 1 `uc 1 LATB0 1 0 :1:0 
+`uc 1 LATB1 1 0 :1:1 
+`uc 1 LATB2 1 0 :1:2 
+`uc 1 LATB3 1 0 :1:3 
+`uc 1 LATB4 1 0 :1:4 
+`uc 1 LATB5 1 0 :1:5 
+`uc 1 LATB6 1 0 :1:6 
+`uc 1 LATB7 1 0 :1:7 
+]
+"856
+[u S370 . 1 `S361 1 . 1 0 ]
+[v _LATBbits LATBbits `VES370  1 e 1 @23 ]
 "3508
 [v _RCREG RCREG `VEuc  1 e 1 @281 ]
-[s S319 . 1 `uc 1 TX1REG 1 0 :8:0 
+[s S400 . 1 `uc 1 TX1REG 1 0 :8:0 
 ]
 "3576
-[u S321 . 1 `S319 1 . 1 0 ]
-[v _TX1REGbits TX1REGbits `VES321  1 e 1 @282 ]
-[s S211 . 1 `uc 1 SP1BRGL 1 0 :8:0 
+[u S402 . 1 `S400 1 . 1 0 ]
+[v _TX1REGbits TX1REGbits `VES402  1 e 1 @282 ]
+[s S219 . 1 `uc 1 SP1BRGL 1 0 :8:0 
 ]
 "3641
-[u S213 . 1 `S211 1 . 1 0 ]
-[v _SP1BRGLbits SP1BRGLbits `VES213  1 e 1 @283 ]
-[s S222 . 1 `uc 1 RX9D 1 0 :1:0 
+[u S221 . 1 `S219 1 . 1 0 ]
+[v _SP1BRGLbits SP1BRGLbits `VES221  1 e 1 @283 ]
+[s S230 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -97,9 +129,9 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "3768
-[u S231 . 1 `S222 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES231  1 e 1 @285 ]
-[s S127 . 1 `uc 1 TX9D 1 0 :1:0 
+[u S239 . 1 `S230 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES239  1 e 1 @285 ]
+[s S135 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -109,9 +141,9 @@
 `uc 1 CSRC 1 0 :1:7 
 ]
 "3948
-[u S136 . 1 `S127 1 . 1 0 ]
-[v _TX1STAbits TX1STAbits `VES136  1 e 1 @286 ]
-[s S106 . 1 `uc 1 ABDEN 1 0 :1:0 
+[u S144 . 1 `S135 1 . 1 0 ]
+[v _TX1STAbits TX1STAbits `VES144  1 e 1 @286 ]
+[s S114 . 1 `uc 1 ABDEN 1 0 :1:0 
 `uc 1 WUE 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 BRG16 1 0 :1:3 
@@ -121,9 +153,9 @@
 `uc 1 ABDOVF 1 0 :1:7 
 ]
 "4136
-[u S115 . 1 `S106 1 . 1 0 ]
-[v _BAUD1CONbits BAUD1CONbits `VES115  1 e 1 @287 ]
-[s S301 . 1 `uc 1 SSP1IF 1 0 :1:0 
+[u S123 . 1 `S114 1 . 1 0 ]
+[v _BAUD1CONbits BAUD1CONbits `VES123  1 e 1 @287 ]
+[s S382 . 1 `uc 1 SSP1IF 1 0 :1:0 
 `uc 1 BCL1IF 1 0 :1:1 
 `uc 1 SSP2IF 1 0 :1:2 
 `uc 1 BCL2IF 1 0 :1:3 
@@ -131,9 +163,9 @@
 `uc 1 RCIF 1 0 :1:5 
 ]
 "21120
-[u S308 . 1 `S301 1 . 1 0 ]
-[v _PIR3bits PIR3bits `VES308  1 e 1 @1807 ]
-[s S256 . 1 `uc 1 SSP1IE 1 0 :1:0 
+[u S389 . 1 `S382 1 . 1 0 ]
+[v _PIR3bits PIR3bits `VES389  1 e 1 @1807 ]
+[s S264 . 1 `uc 1 SSP1IE 1 0 :1:0 
 `uc 1 BCL1IE 1 0 :1:1 
 `uc 1 SSP2IE 1 0 :1:2 
 `uc 1 BCL2IE 1 0 :1:3 
@@ -141,19 +173,19 @@
 `uc 1 RCIE 1 0 :1:5 
 ]
 "21542
-[u S263 . 1 `S256 1 . 1 0 ]
-[v _PIE3bits PIE3bits `VES263  1 e 1 @1817 ]
-[s S170 . 1 `uc 1 RXPPS0 1 0 :1:0 
+[u S271 . 1 `S264 1 . 1 0 ]
+[v _PIE3bits PIE3bits `VES271  1 e 1 @1817 ]
+[s S178 . 1 `uc 1 RXPPS0 1 0 :1:0 
 `uc 1 RXPPS1 1 0 :1:1 
 `uc 1 RXPPS2 1 0 :1:2 
 `uc 1 RXPPS3 1 0 :1:3 
 `uc 1 RXPPS4 1 0 :1:4 
 ]
 "31583
-[s S176 . 1 `uc 1 RXPPS 1 0 :5:0 
+[s S184 . 1 `uc 1 RXPPS 1 0 :5:0 
 ]
-[u S178 . 1 `S170 1 . 1 0 `S176 1 . 1 0 ]
-[v _RXPPSbits RXPPSbits `VES178  1 e 1 @3787 ]
+[u S186 . 1 `S178 1 . 1 0 `S184 1 . 1 0 ]
+[v _RXPPSbits RXPPSbits `VES186  1 e 1 @3787 ]
 "32720
 [v _RC5PPS RC5PPS `VEuc  1 e 1 @3877 ]
 [s S64 . 1 `uc 1 ANSA0 1 0 :1:0 
@@ -170,7 +202,21 @@
 "32887
 "32887
 [v _ANSELAbits ANSELAbits `VES73  1 e 1 @3896 ]
-[s S190 . 1 `uc 1 ANSC0 1 0 :1:0 
+[s S340 . 1 `uc 1 ANSB0 1 0 :1:0 
+`uc 1 ANSB1 1 0 :1:1 
+`uc 1 ANSB2 1 0 :1:2 
+`uc 1 ANSB3 1 0 :1:3 
+`uc 1 ANSB4 1 0 :1:4 
+`uc 1 ANSB5 1 0 :1:5 
+`uc 1 ANSB6 1 0 :1:6 
+`uc 1 ANSB7 1 0 :1:7 
+]
+"33507
+[u S349 . 1 `S340 1 . 1 0 ]
+"33507
+"33507
+[v _ANSELBbits ANSELBbits `VES349  1 e 1 @3907 ]
+[s S198 . 1 `uc 1 ANSC0 1 0 :1:0 
 `uc 1 ANSC1 1 0 :1:1 
 `uc 1 ANSC2 1 0 :1:2 
 `uc 1 ANSC3 1 0 :1:3 
@@ -180,10 +226,10 @@
 `uc 1 ANSC7 1 0 :1:7 
 ]
 "34127
-[u S199 . 1 `S190 1 . 1 0 ]
+[u S207 . 1 `S198 1 . 1 0 ]
 "34127
 "34127
-[v _ANSELCbits ANSELCbits `VES199  1 e 1 @3918 ]
+[v _ANSELCbits ANSELCbits `VES207  1 e 1 @3918 ]
 "76 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
 [v _currentInput currentInput `i  1 e 2 0 ]
 "77
@@ -206,60 +252,82 @@
 [s S34 command 14 `i 1 sendLimit 2 0 `i 1 sendIt 2 2 `i 1 sendId 2 4 `*.4uc 1 toSend 1 6 `i 1 receiveIt 2 7 `i 1 receiveLimit 2 9 `i 1 receiveId 2 11 `uc 1 done 1 13 ]
 "93
 [v _currentCommand currentCommand `S34  1 e 14 0 ]
-"103
+"109
 [v _main main `(v  1 e 1 0 ]
 {
-"187
+"201
 } 0
-"218
+"232
 [v _drive drive `(v  1 e 1 0 ]
 {
-"235
+"249
 } 0
-"237
+"251
 [v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
 {
 [v CreateTurnRightCommmand@pwm pwm `ui  1 p 2 0 ]
-"250
+"264
 } 0
-"252
+"266
 [v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
 {
 [v CreateTurnLeftCommmand@pwm pwm `ui  1 p 2 0 ]
-"265
+"279
 } 0
-"267
+"281
 [v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
 {
 [v CreateMoveForwardCommmand@pwm pwm `ui  1 p 2 0 ]
-"280
+"294
 } 0
-"282
+"296
 [v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
 {
 [v CreateMoveBackwardCommmand@pwm pwm `ui  1 p 2 0 ]
-"295
+"309
 } 0
-"310
+"324
 [v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
 {
-"320
+"334
 } 0
-"297
+"311
 [v _CreateBreak CreateBreak `(v  1 e 1 0 ]
 {
-"308
+"322
 } 0
-"323
+"338
+[v _SetUpPumpArm SetUpPumpArm `(v  1 e 1 0 ]
+{
+"347
+} 0
+"349
+[v _SetUpPump SetUpPump `(v  1 e 1 0 ]
+{
+"357
+} 0
+"359
+[v _MovePumpArm MovePumpArm `(v  1 e 1 0 ]
+{
+[v MovePumpArm@switchValue switchValue `i  1 p 2 0 ]
+"370
+} 0
+"372
+[v _ActivatePump ActivatePump `(v  1 e 1 0 ]
+{
+[v ActivatePump@switchValue switchValue `i  1 p 2 0 ]
+"381
+} 0
+"382
 [v _myFunction myFunction `II(v  1 e 1 0 ]
 {
-"325
+"384
 [v myFunction@input input `i  1 a 2 7 ]
-"349
+"408
 } 0
-"189
+"203
 [v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
 {
 [v GetControllerInput@input input `i  1 p 2 0 ]
-"216
+"230
 } 0

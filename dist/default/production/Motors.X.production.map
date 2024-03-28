@@ -6,10 +6,10 @@ Linker command line:
   --edf=C:\Program Files\Microchip\xc8\v2.46\pic\dat\20240104201356_en.msgs \
   -cn -h+dist/default/production\Motors.X.production.sym \
   --cmf=dist/default/production\Motors.X.production.cmf -z -Q16F18855 \
-  -oC:\Users\chum_\AppData\Local\Temp\xcAseo8.\driver_tmp_3.o \
+  -oC:\Users\chum_\AppData\Local\Temp\xcAsbf4.\driver_tmp_3.o \
   --defsym=__MPLAB_BUILD=1 --fixupoverflow=error \
   -Mdist/default/production/Motors.X.production.map \
-  --md=C:\Users\chum_\AppData\Local\Temp\xcAseo8.\driver_tmp_0.dat -E1 \
+  --md=C:\Users\chum_\AppData\Local\Temp\xcAsbf4.\driver_tmp_0.dat -E1 \
   -ver=XC8 Compiler --acfsm=1493 -ACODE=00h-07FFhx4 -ASTRCODE=00h-01FFFh \
   -ASTRING=00h-0FFhx32 -ACONST=00h-0FFhx32 -AENTRY=00h-0FFhx32 \
   -ACOMMON=070h-07Fh -ABANK0=020h-06Fh -ABANK1=0A0h-0EFh \
@@ -34,7 +34,7 @@ Linker command line:
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
   -DENTRY=2 -preset_vec=00h,intentry=04h,sivt,init,end_init -ppowerup=CODE \
   -pcinit=CODE -pfunctab=ENTRY -k \
-  C:\Users\chum_\AppData\Local\Temp\xcAseo8.\driver_tmp_15.o \
+  C:\Users\chum_\AppData\Local\Temp\xcAsbf4.\driver_tmp_15.o \
   dist/default/production\Motors.X.production.o 
 
 Object code version is 3.11
@@ -44,7 +44,7 @@ Machine type is 16F18855
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\chum_\AppData\Local\Temp\xcAseo8.\driver_tmp_15.o
+C:\Users\chum_\AppData\Local\Temp\xcAsbf4.\driver_tmp_15.o
                 end_init                             7D       7D        2        8       0
                 reset_vec                             0        0        2        0       0
                 config                             8007     8007        5        0       4
@@ -52,29 +52,33 @@ dist/default/production\Motors.X.production.o
                 cinit                                7F       7F       36        8       0
                 intentry                              4        4       79        8       0
                 config                             8007     8007        5        0       4
-                text9                               1C1      1C1      10A        8       0
-                text7                               413      413       17        8       0
-                text6                               3F8      3F8       1B        8       0
-                text5                               3A3      3A3       1F        8       0
-                text4                               384      384       1F        8       0
-                text3                               3DD      3DD       1B        8       0
-                text2                               3C2      3C2       1B        8       0
+                text13                              1C1      1C1      10A        8       0
+                text11                              46A      46A       10        8       0
+                text10                              438      438       1B        8       0
+                text9                               484      484        A        8       0
+                text8                               47A      47A        A        8       0
+                text7                               453      453       17        8       0
+                text6                               41D      41D       1B        8       0
+                text5                               3C8      3C8       1F        8       0
+                text4                               3A9      3A9       1F        8       0
+                text3                               402      402       1B        8       0
+                text2                               3E7      3E7       1B        8       0
                 text1                                B5       B5      10C        8       0
-                maintext                            2CB      2CB       74        8       0
+                maintext                            2CB      2CB       99        8       0
                 cstackBANK0                          68       68        3       20       1
                 cstackCOMMON                         70       70        9       70       1
-                clrtext                             430      430        6        8       0
-                inittext                            42A      42A        6        8       0
+                clrtext                             494      494        6        8       0
+                inittext                            48E      48E        6        8       0
                 dataBANK1                            A0       A0       25       A0       1
                 bssBANK1                             C5       C5       24       A0       1
                 dataBANK0                            48       48       20       20       1
                 bssBANK0                             20       20       28       20       1
                 dataCOMMON                           7B       7B        2       70       1
                 bssCOMMON                            79       79        2       70       1
-                stringtext1                         438      438        2      870       0
-                idataBANK1                          33F      33F       25        8       0
-                idataBANK0                          364      364       20        8       0
-                idataCOMMON                         436      436        2        8       0
+                stringtext1                         49C      49C        2      938       0
+                idataBANK1                          364      364       25        8       0
+                idataBANK0                          389      389       20        8       0
+                idataCOMMON                         49A      49A        2        8       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
@@ -82,23 +86,27 @@ TOTAL           Name                               Link     Load   Length     Sp
                 cinit                                7F       7F       36         0
                 intentry                              4        4       79         0
                 reset_vec                             0        0        2         0
-                text9                               1C1      1C1      10A         0
-                text7                               413      413       17         0
-                text6                               3F8      3F8       1B         0
-                text5                               3A3      3A3       1F         0
-                text4                               384      384       1F         0
-                text3                               3DD      3DD       1B         0
-                text2                               3C2      3C2       1B         0
+                text13                              1C1      1C1      10A         0
+                text11                              46A      46A       10         0
+                text10                              438      438       1B         0
+                text9                               484      484        A         0
+                text8                               47A      47A        A         0
+                text7                               453      453       17         0
+                text6                               41D      41D       1B         0
+                text5                               3C8      3C8       1F         0
+                text4                               3A9      3A9       1F         0
+                text3                               402      402       1B         0
+                text2                               3E7      3E7       1B         0
                 text1                                B5       B5      10C         0
-                maintext                            2CB      2CB       74         0
-                clrtext                             430      430        6         0
-                inittext                            42A      42A        6         0
-                idataBANK1                          33F      33F       25         0
-                idataBANK0                          364      364       20         0
-                idataCOMMON                         436      436        2         0
+                maintext                            2CB      2CB       99         0
+                clrtext                             494      494        6         0
+                inittext                            48E      48E        6         0
+                idataBANK1                          364      364       25         0
+                idataBANK0                          389      389       20         0
+                idataCOMMON                         49A      49A        2         0
 
         CLASS   STRCODE        
-                stringtext1                         438      438        2         0
+                stringtext1                         49C      49C        2         0
 
         CLASS   STRING         
 
@@ -267,11 +275,11 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000002  000002         0       0  CODE        2
-                intentry                       000004  000434  000438         8       0  CODE        2
+                intentry                       000004  000498  00049C         8       0  CODE        2
                 bssBANK0                       000020  00004B  00006B        20       1  BANK0       1
                 cstackCOMMON                   000070  00000D  00007D        70       1  COMMON      1
                 dataBANK1                      0000A0  000049  0000E9        A0       1  BANK1       1
-                stringtext1                    000438  000002  00043A       870       0  STRCODE     2
+                stringtext1                    00049C  000002  00049E       938       0  STRCODE     2
 
 
 UNUSED ADDRESS RANGES
@@ -292,13 +300,13 @@ UNUSED ADDRESS RANGES
         BANK9            004A0-004EF              50           1
         BIGRAM           02000-023EF             3F0           1
         CODE             00002-00003               2           2
-                         0043A-01FFF             800
+                         0049E-01FFF             800
         COMMON           0007D-0007D               1           1
         CONST            00002-00003               2           2
-                         0043A-01FFF             100
+                         0049E-01FFF             100
         EEDATA           0F000-0F0FF             100           2
         ENTRY            00002-00003               2           2
-                         0043A-01FFF             100
+                         0049E-01FFF             100
         IDLOC            08000-08003               4           2
         RAM              0006B-0006F               5           1
                          000E9-000EF               7
@@ -346,33 +354,39 @@ UNUSED ADDRESS RANGES
         SFR8             00400-0041F              20           1
         SFR9             00480-0049F              20           1
         STRCODE          00002-00003               2           2
-                         0043A-01FFF            1BC6
+                         0049E-01FFF            1B62
         STRING           00002-00003               2           2
-                         0043A-01FFF             100
+                         0049E-01FFF             100
 
                                   Symbol Table
 
+ActivatePump@switchValue            cstackBANK0  00068
 CreateMoveBackwardCommmand@pwm      cstackBANK0  00068
 CreateMoveForwardCommmand@pwm       cstackBANK0  00068
 CreateTurnLeftCommmand@pwm          cstackBANK0  00068
 CreateTurnRightCommmand@pwm         cstackBANK0  00068
 GetControllerInput@input            cstackCOMMON 00070
+MovePumpArm@switchValue             cstackBANK0  00068
 _ANSELAbits                         (abs)        00F38
+_ANSELBbits                         (abs)        00F43
 _ANSELCbits                         (abs)        00F4E
+_ActivatePump                       text11       0046A
 _BAUD1CONbits                       (abs)        0011F
 _Break                              dataBANK1    000A7
-_CreateBreak                        text7        00413
-_CreateControlsCommand              text6        003F8
-_CreateMoveBackwardCommmand         text5        003A3
-_CreateMoveForwardCommmand          text4        00384
-_CreateTurnLeftCommmand             text3        003DD
-_CreateTurnRightCommmand            text2        003C2
-_GetControllerInput                 text9        001C1
+_CreateBreak                        text7        00453
+_CreateControlsCommand              text6        0041D
+_CreateMoveBackwardCommmand         text5        003C8
+_CreateMoveForwardCommmand          text4        003A9
+_CreateTurnLeftCommmand             text3        00402
+_CreateTurnRightCommmand            text2        003E7
+_GetControllerInput                 text13       001C1
 _GetUserDataCommand                 dataBANK0    00062
 _INTCONbits                         (abs)        0000B
 _LATAbits                           (abs)        00016
+_LATBbits                           (abs)        00017
 _MoveBackwardCommand                dataBANK1    000B1
 _MoveForwardCommand                 dataBANK1    000BB
+_MovePumpArm                        text10       00438
 _PIE3bits                           (abs)        00719
 _PIR3bits                           (abs)        0070F
 _RC1STAbits                         (abs)        0011D
@@ -380,7 +394,10 @@ _RC5PPS                             (abs)        00F25
 _RCREG                              (abs)        00119
 _RXPPSbits                          (abs)        00ECB
 _SP1BRGLbits                        (abs)        0011B
+_SetUpPump                          text9        00484
+_SetUpPumpArm                       text8        0047A
 _TRISAbits                          (abs)        00011
+_TRISBbits                          (abs)        00012
 _TRISCbits                          (abs)        00013
 _TX1REGbits                         (abs)        0011A
 _TX1STAbits                         (abs)        0011E
@@ -481,7 +498,7 @@ __Hsfr7                             sfr7         00000
 __Hsfr8                             sfr8         00000
 __Hsfr9                             sfr9         00000
 __Hsivt                             sivt         0007D
-__Hspace_0                          (abs)        0043A
+__Hspace_0                          (abs)        0049E
 __Hspace_1                          (abs)        000E9
 __Hspace_2                          (abs)        00000
 __Hspace_3                          (abs)        00000
@@ -594,7 +611,7 @@ __Lstack                            stack        00000
 __Lstrings                          strings      00000
 __Lstringtext1                      stringtext1  00000
 __Ltext                             text         00000
-__S0                                (abs)        0043A
+__S0                                (abs)        0049E
 __S1                                (abs)        000E9
 __S3                                (abs)        00000
 ___heap_hi                          (abs)        00000
@@ -608,17 +625,21 @@ ___stack_hi                         stack        00000
 ___stack_lo                         stack        00000
 ___stackhi                          (abs)        00000
 ___stacklo                          (abs)        00000
-__end_of_CONTROL_INPUT              stringtext1  0043A
-__end_of_CreateBreak                text7        0042A
-__end_of_CreateControlsCommand      text6        00413
-__end_of_CreateMoveBackwardCommmand text5        003C2
-__end_of_CreateMoveForwardCommmand  text4        003A3
-__end_of_CreateTurnLeftCommmand     text3        003F8
-__end_of_CreateTurnRightCommmand    text2        003DD
-__end_of_GetControllerInput         text9        002CB
+__end_of_ActivatePump               text11       0047A
+__end_of_CONTROL_INPUT              stringtext1  0049E
+__end_of_CreateBreak                text7        0046A
+__end_of_CreateControlsCommand      text6        00438
+__end_of_CreateMoveBackwardCommmand text5        003E7
+__end_of_CreateMoveForwardCommmand  text4        003C8
+__end_of_CreateTurnLeftCommmand     text3        0041D
+__end_of_CreateTurnRightCommmand    text2        00402
+__end_of_GetControllerInput         text13       002CB
+__end_of_MovePumpArm                text10       00453
+__end_of_SetUpPump                  text9        0048E
+__end_of_SetUpPumpArm               text8        00484
 __end_of__initialization            cinit        000B1
 __end_of_drive                      text1        001C1
-__end_of_main                       maintext     0033F
+__end_of_main                       maintext     00364
 __end_of_myFunction                 intentry     0007D
 __initialization                    cinit        0007F
 __pbssBANK0                         bssBANK0     00020
@@ -629,20 +650,24 @@ __pcstackCOMMON                     cstackCOMMON 00070
 __pdataBANK0                        dataBANK0    00048
 __pdataBANK1                        dataBANK1    000A0
 __pdataCOMMON                       dataCOMMON   0007B
-__pidataBANK0                       idataBANK0   00364
-__pidataBANK1                       idataBANK1   0033F
-__pidataCOMMON                      idataCOMMON  00436
+__pidataBANK0                       idataBANK0   00389
+__pidataBANK1                       idataBANK1   00364
+__pidataCOMMON                      idataCOMMON  0049A
 __pintentry                         intentry     00004
 __pmaintext                         maintext     002CB
-__pstringtext1                      stringtext1  00438
+__pstringtext1                      stringtext1  0049C
 __ptext1                            text1        000B5
-__ptext2                            text2        003C2
-__ptext3                            text3        003DD
-__ptext4                            text4        00384
-__ptext5                            text5        003A3
-__ptext6                            text6        003F8
-__ptext7                            text7        00413
-__ptext9                            text9        001C1
+__ptext10                           text10       00438
+__ptext11                           text11       0046A
+__ptext13                           text13       001C1
+__ptext2                            text2        003E7
+__ptext3                            text3        00402
+__ptext4                            text4        003A9
+__ptext5                            text5        003C8
+__ptext6                            text6        0041D
+__ptext7                            text7        00453
+__ptext8                            text8        0047A
+__ptext9                            text9        00484
 _controls                           bssBANK0     00020
 _currentCommand                     bssBANK0     00036
 _currentInput                       bssCOMMON    00079
@@ -651,9 +676,9 @@ _inputStage                         bssBANK0     00046
 _main                               maintext     002CB
 _myFunction                         intentry     00004
 btemp                               (abs)        0007E
-clear_ram0                          clrtext      00430
+clear_ram0                          clrtext      00494
 end_of_initialization               cinit        000B1
-init_ram                            inittext     0042A
+init_ram                            inittext     0048E
 int$flags                           (abs)        0007E
 intlevel0                           functab      00000
 intlevel1                           functab      00000
@@ -678,16 +703,20 @@ shared
 shared estimated size: 50
 
 motorMain.c
-		_CreateBreak   		CODE           	0413	0000	23
-		_CreateControlsCommand		CODE           	03F8	0000	27
-		_CreateTurnRightCommmand		CODE           	03C2	0000	27
-		_main          		CODE           	02CB	0000	116
-		_CreateTurnLeftCommmand		CODE           	03DD	0000	27
+		_CreateBreak   		CODE           	0453	0000	23
+		_MovePumpArm   		CODE           	0438	0000	27
+		_CreateControlsCommand		CODE           	041D	0000	27
+		_CreateTurnRightCommmand		CODE           	03E7	0000	27
+		_main          		CODE           	02CB	0000	153
+		_CreateTurnLeftCommmand		CODE           	0402	0000	27
 		_GetControllerInput		CODE           	01C1	0000	266
-		_CreateMoveForwardCommmand		CODE           	0384	0000	31
+		_CreateMoveForwardCommmand		CODE           	03A9	0000	31
+		_ActivatePump  		CODE           	046A	0000	16
 		_drive         		CODE           	00B5	0000	268
 		_myFunction    		CODE           	0004	0000	121
-		_CreateMoveBackwardCommmand		CODE           	03A3	0000	31
+		_SetUpPump     		CODE           	0484	0000	10
+		_CreateMoveBackwardCommmand		CODE           	03C8	0000	31
+		_SetUpPumpArm  		CODE           	047A	0000	10
 
-motorMain.c estimated size: 937
+motorMain.c estimated size: 1037
 

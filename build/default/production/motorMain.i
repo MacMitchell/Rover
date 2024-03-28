@@ -19894,8 +19894,8 @@ unsigned char MoveBackwardCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x0
 unsigned char Break[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 int commandIt = 0;
-unsigned int SWITCH_MAX = 1900;
-unsigned int SWITCH_MIN = 1100;
+unsigned int SWITCH_MAX = 2000;
+unsigned int SWITCH_MIN = 1000;
 unsigned int SWITCH_MID = 1500;
 struct controller controls;
 struct command currentCommand;
@@ -19907,6 +19907,12 @@ void CreateMoveForwardCommmand(unsigned int pwm);
 void CreateMoveBackwardCommmand(unsigned int pwm);
 void CreateBreak();
 void drive();
+
+
+void SetUpPumpArm();
+void SetUpPump();
+void ActivatePump(int switchValue);
+void MovePumpArm(int switchValue);
 
 void main(void) {
 
@@ -19924,6 +19930,8 @@ void main(void) {
     LATAbits.LATA2 = 0;
     LATAbits.LATA3 = 0;
 
+    SetUpPumpArm();
+    SetUpPump();
 
     BAUD1CONbits.BRG16=1;
 
@@ -19958,11 +19966,15 @@ void main(void) {
 
 
     while(1){
-        if(controls.switchA < SWITCH_MIN){
+        if(controls.switchA <= SWITCH_MIN){
             LATAbits.LATA0 = 1;
+            MovePumpArm(controls.switchC);
+            ActivatePump(controls.switchD);
         }
         else{
             LATAbits.LATA0 = 0;
+            MovePumpArm(SWITCH_MID);
+            ActivatePump(SWITCH_MAX);
         }
         if(controls.switchB <= SWITCH_MIN){
             LATAbits.LATA1 = 1;
@@ -19982,6 +19994,8 @@ void main(void) {
         else{
             LATAbits.LATA3 = 0;
         }
+
+
         if(currentCommand.done){
             if(currentCommand.sendId == CONTROL_INPUT){
                 drive();
@@ -20128,6 +20142,51 @@ void CreateControlsCommand(){
 }
 
 
+
+void SetUpPumpArm(){
+    TRISBbits.TRISB0 = 0;
+    TRISBbits.TRISB1 = 0;
+    ANSELBbits.ANSB0 = 0;
+    ANSELBbits.ANSB1 = 0;
+
+    LATBbits.LATB0 = 0;
+    LATBbits.LATB1 = 0;
+
+}
+
+void SetUpPump(){
+    TRISBbits.TRISB2 = 0;
+    TRISBbits.TRISB3 = 0;
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+
+    LATBbits.LATB2 = 0;
+    LATBbits.LATB3 = 0;
+}
+
+void MovePumpArm(int switchValue){
+    LATBbits.LATB0 = 0;
+    LATBbits.LATB1 = 0;
+    if(switchValue == SWITCH_MIN){
+            LATBbits.LATB0 = 1;
+            LATBbits.LATB1 = 0;
+    }
+    else if(switchValue == SWITCH_MAX){
+            LATBbits.LATB0 = 0;
+            LATBbits.LATB1 = 1;
+    }
+}
+
+void ActivatePump(int switchValue){
+    if(switchValue <= SWITCH_MIN){
+        LATBbits.LATB2 = 1;
+        LATBbits.LATB3 = 0;
+    }
+    else{
+        LATBbits.LATB2 = 0;
+        LATBbits.LATB3 = 0;
+    }
+}
 void __attribute__((picinterrupt(("")))) myFunction(){
     if(PIR3bits.RCIF == 1){
         int input = RCREG;
