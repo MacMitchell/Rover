@@ -336,6 +336,8 @@ void CreateControlsCommand(){
 
 
 void SetUpPumpArm(){
+    
+    //for the actual pump arm device: red wire connects to left side of MOT.B and black wire is the right side of MOT.B
     TRISBbits.TRISB0 = 0; //BIN2 on motor driver
     TRISBbits.TRISB1 = 0; //BIN1 on motor driver
     ANSELBbits.ANSB0 = 0;
@@ -347,6 +349,8 @@ void SetUpPumpArm(){
 }
 
 void SetUpPump(){
+    //For the actual pump: Red wire goes the left side of MOT.A and black wire goes to right side of MOT.A
+    
     TRISBbits.TRISB2 = 0; //AIN1 on motor driver
     TRISBbits.TRISB3 = 0; //AIN2 on motor driver
     ANSELBbits.ANSB2 = 0;
