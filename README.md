@@ -3,12 +3,12 @@
 ### Group 5
 
 ##### Authors:
-Promise Ononokpono
-Mitchell MacDonald
-Ugyen Zangmo
-Michael Bridgland
+- Promise Ononokpono
+- Mitchell MacDonald
+- Ugyen Zangmo
+- Michael Bridgland
 
 ##### Targets:
-Colour Sensor
-Audio Generation
-Water Relocation
+- Colour Sensor
+- Audio Generation
+- Water Relocation
