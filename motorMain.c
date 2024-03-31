@@ -86,8 +86,8 @@ unsigned char MoveBackwardCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x0
 unsigned char Break[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 int commandIt = 0;
-unsigned int SWITCH_MAX = 1900;// (int)0xE803*0.9;
-unsigned int SWITCH_MIN = 1100; //(int)0xD007*1.1;
+unsigned int SWITCH_MAX = 2000;// (int)0xE803*0.9;
+unsigned int SWITCH_MIN = 1000; //(int)0xD007*1.1;
 unsigned int SWITCH_MID = 1500;
 struct controller controls;
 struct command currentCommand;
@@ -99,6 +99,12 @@ void CreateMoveForwardCommmand(unsigned int pwm);
 void CreateMoveBackwardCommmand(unsigned int pwm);
 void CreateBreak();
 void drive();
+
+
+void SetUpPumpArm();
+void SetUpPump();
+void ActivatePump(int switchValue);
+void MovePumpArm(int switchValue);
 
 void main(void) {
     
@@ -116,6 +122,8 @@ void main(void) {
     LATAbits.LATA2 = 0;
     LATAbits.LATA3 = 0;
     
+    SetUpPumpArm();
+    SetUpPump();
     //tell it we need 16 bits
     BAUD1CONbits.BRG16=1;
     //divide clock by 4
@@ -150,11 +158,15 @@ void main(void) {
 
     
     while(1){
-        if(controls.switchA < SWITCH_MIN){
+        if(controls.switchA <= SWITCH_MIN){
             LATAbits.LATA0 = 1;
+            MovePumpArm(controls.switchC);
+            ActivatePump(controls.switchD);
         }
         else{
             LATAbits.LATA0 = 0;
+            MovePumpArm(SWITCH_MID); //do not move pump arm
+            ActivatePump(SWITCH_MAX);//turn off pump
         }
         if(controls.switchB <= SWITCH_MIN){
             LATAbits.LATA1 = 1;
@@ -174,6 +186,8 @@ void main(void) {
         else{
             LATAbits.LATA3 = 0;
         }
+        
+        
         if(currentCommand.done){
             if(currentCommand.sendId == CONTROL_INPUT){
                 drive();
@@ -319,7 +333,56 @@ void CreateControlsCommand(){
     PIE3bits.TXIE = 1;
 }
 
+
+
+void SetUpPumpArm(){
     
+    //for the actual pump arm device: red wire connects to left side of MOT.B and black wire is the right side of MOT.B
+    TRISBbits.TRISB0 = 0; //BIN2 on motor driver
+    TRISBbits.TRISB1 = 0; //BIN1 on motor driver
+    ANSELBbits.ANSB0 = 0;
+    ANSELBbits.ANSB1 = 0;
+    
+    LATBbits.LATB0 = 0;
+    LATBbits.LATB1 = 0;
+    
+}
+
+void SetUpPump(){
+    //For the actual pump: Red wire goes the left side of MOT.A and black wire goes to right side of MOT.A
+    
+    TRISBbits.TRISB2 = 0; //AIN1 on motor driver
+    TRISBbits.TRISB3 = 0; //AIN2 on motor driver
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+    
+    LATBbits.LATB2 = 0;
+    LATBbits.LATB3 = 0;
+}
+    
+void MovePumpArm(int switchValue){
+    LATBbits.LATB0 = 0;
+    LATBbits.LATB1 = 0;
+    if(switchValue == SWITCH_MIN){
+            LATBbits.LATB0 = 1;
+            LATBbits.LATB1 = 0;
+    }
+    else if(switchValue == SWITCH_MAX){    
+            LATBbits.LATB0 = 0;
+            LATBbits.LATB1 = 1;
+    }
+}
+
+void ActivatePump(int switchValue){
+    if(switchValue <= SWITCH_MIN){
+        LATBbits.LATB2 = 1;
+        LATBbits.LATB3 = 0;
+    }
+    else{
+        LATBbits.LATB2 = 0;
+        LATBbits.LATB3 = 0;
+    }
+}
 void __interrupt() myFunction(){
     if(PIR3bits.RCIF == 1){
         int input = RCREG;
