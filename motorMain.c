@@ -79,12 +79,16 @@ struct command{
 
 const int CONTROL_INPUT =1;
 int CONTROL_OUTPUT = 1;
-
+const int DRIVE_COMMAND = 2;
+const int LASER_COMMAND = 3;
 int currentInput =0;
 int inputStage = 0;
 
 unsigned char GetUserDataCommand[6] = {0xFE, 0x19, 0x01, 0x5,0x00,0x00};
 unsigned char EnableLaserScopeCommand[7] = {0xFE, 0x19, 0x01, 0x08, 0x01, 0x00, 0x01};
+unsigned char FireLaserCommand[7] = {0xFE, 0x19, 0x01, 0x09, 0x01, 0x00, 0x02};
+unsigned char ProcessOreCommand[7] = {0xFE,0x19,0x03,0x0A,0x01,0x00,0x1};
+
 
 unsigned char TurnLeftCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x01, 0x32, 0x02, 0x32};
 unsigned char TurnRightCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x02, 0x32, 0x01, 0x32};
@@ -107,7 +111,8 @@ void CreateMoveBackwardCommmand(unsigned int pwm);
 void CreateBreak();
 void drive();
 
-
+void CreateLaserCommand();
+void  CreateProcessCommand();
 void SetUpPumpArm();
 void SetUpPump();
 void ActivatePump(int switchValue);
@@ -168,6 +173,9 @@ void main(void) {
     RC1STAbits.CREN = 1;
     
     
+    //comment out if using debugger
+    SetUpAnalog();
+    //Comment this out if the sensor is NOT plugged in
     SetUpColorSensor();
     
     
@@ -220,13 +228,18 @@ void main(void) {
             if(currentCommand.sendId == CONTROL_INPUT){
                 drive();
             }
+            else if(currentCommand.sendId  == DRIVE_COMMAND && controls.switchA >= SWITCH_MAX){
+                if(controls.switchB <= SWITCH_MIN){
+                    CreateLaserCommand();
+                }
+                else{
+                    CreateProcessCommand();
+                }
+            }
             else{
                 CreateControlsCommand();
             }
         }
-    
-
-        
     }
     return;
 }
@@ -281,7 +294,7 @@ void drive(){
 }
 
 void CreateTurnRightCommmand(unsigned int pwm){
-    currentCommand.sendId = 3;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -296,7 +309,7 @@ void CreateTurnRightCommmand(unsigned int pwm){
 }
 
 void CreateTurnLeftCommmand(unsigned int pwm){
-    currentCommand.sendId = 4;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -311,7 +324,7 @@ void CreateTurnLeftCommmand(unsigned int pwm){
 }
 
 void CreateMoveForwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 5;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -326,7 +339,7 @@ void CreateMoveForwardCommmand(unsigned int pwm){
 }
 
 void CreateMoveBackwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 6;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -341,7 +354,7 @@ void CreateMoveBackwardCommmand(unsigned int pwm){
 }
 
 void CreateBreak(){
-    currentCommand.sendId = 7;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -365,7 +378,38 @@ void CreateControlsCommand(){
     PIE3bits.TXIE = 1;
 }
 
+void CreateLaserCommand(){
+    currentCommand.receiveId = LASER_COMMAND;
+    currentCommand.receiveLimit = 0;
+    currentCommand.receiveIt = 0;
+    currentCommand.sendId = LASER_COMMAND;
+    currentCommand.toSend = (unsigned char*) FireLaserCommand;
+    currentCommand.sendIt = 0;
+    currentCommand.sendLimit = 7;
+    currentCommand.done = 0;
+    PIE3bits.TXIE = 1;
+}
 
+void  CreateProcessCommand(){
+    if(controls.switchC == SWITCH_MAX){
+        ProcessOreCommand[6] =3; //blue
+    }
+    else if(controls.switchC == SWITCH_MID){
+        ProcessOreCommand[6] = 1;//red
+    }
+    else{
+        ProcessOreCommand[6] = 2;
+    }
+    currentCommand.receiveId = LASER_COMMAND;
+    currentCommand.receiveLimit = 0;
+    currentCommand.receiveIt = 0;
+    currentCommand.sendId = LASER_COMMAND;
+    currentCommand.toSend = (unsigned char*) ProcessOreCommand;
+    currentCommand.sendIt = 0;
+    currentCommand.sendLimit = 7;
+    currentCommand.done = 0;
+    PIE3bits.TXIE = 1;
+}
 
 void SetUpPumpArm(){
     

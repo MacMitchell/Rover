@@ -172,6 +172,16 @@ void RepeatedStart(){
     while(!PIR3bits.SSP1IF){}
     PIR3bits.SSP1IF = 0;
 }
+
+void SetUpAnalog(){
+    DAC1CON0bits.DAC1EN = 1;
+    
+    //enable DAC1CON0 to output analog signal to RB7
+    DAC1CON0bits.DAC1OE2 = 1;
+    
+    TRISBbits.TRISB7 = 0;
+    ANSELBbits.ANSB7 = 1;
+}
 //intializes the Sensor and sets checks that that ID matchs
 int SetUp(){
     StartIC2Transmission();
@@ -518,6 +528,8 @@ void ColorSensor(unsigned char *newI2CMessage,int *I2CStage, ColorScheme* colors
                 }
             }
         }
+    PlayTune(*color);
+    
 }
 
 
