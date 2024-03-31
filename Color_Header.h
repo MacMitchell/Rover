@@ -459,6 +459,11 @@ void PlayTune(unsigned char color){
 
 //CALL THIS METHOD IN MAIN, not others
 void SetUpColorSensor(){
+    //3.3V to Vin
+    //ground to GND
+    //SDA on board (RC3) to SCL on sensor
+    //SCL on board (RC5) to SDA on sensor
+    
     SetUpI2C();
     int result = SetUp();
     if(result == 1){
