@@ -41,6 +41,13 @@
 
 #include <xc.h>
 
+#define _XTAL_FREQ 32000000
+
+#include "Color_Header.h"
+
+
+
+
 
 struct controller{
     int rightX;
@@ -106,6 +113,16 @@ void SetUpPump();
 void ActivatePump(int switchValue);
 void MovePumpArm(int switchValue);
 
+
+//COLOR SENSOR
+
+unsigned char color=0;
+ColorScheme colors;
+
+int I2CStage = 0;
+unsigned char newI2CMessage = 1;
+
+int counter = 0;
 void main(void) {
     
    TRISAbits.TRISA5 = 1;
@@ -150,41 +167,52 @@ void main(void) {
            
     RC1STAbits.CREN = 1;
     
+    
+    SetUpColorSensor();
+    
+    
+    
+    
     //enable interrupts
-    INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
     PIE3bits.RCIE = 1;
     PIE3bits.TXIE = 1;
+    PIE3bits.SSP1IE = 1;
+    INTCONbits.GIE = 1;
 
     
     while(1){
         if(controls.switchA <= SWITCH_MIN){
-            LATAbits.LATA0 = 1;
+            //LATAbits.LATA0 = 1;
             MovePumpArm(controls.switchC);
             ActivatePump(controls.switchD);
+            
+            if(controls.switchB <= SWITCH_MIN){
+                ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
+            }
         }
         else{
-            LATAbits.LATA0 = 0;
+            //LATAbits.LATA0 = 0;
             MovePumpArm(SWITCH_MID); //do not move pump arm
             ActivatePump(SWITCH_MAX);//turn off pump
         }
         if(controls.switchB <= SWITCH_MIN){
-            LATAbits.LATA1 = 1;
+            //LATAbits.LATA1 = 1;
         }
         else{
-            LATAbits.LATA1 = 0;
+            //LATAbits.LATA1 = 0;
         }  
         if(controls.switchC == SWITCH_MID){
-            LATAbits.LATA2 = 1;
+            //LATAbits.LATA2 = 1;
         }
         else{
-            LATAbits.LATA2 = 0;
+            //LATAbits.LATA2 = 0;
         }  
         if(controls.switchD <= SWITCH_MIN){
-            LATAbits.LATA3 = 1;
+            //LATAbits.LATA3 = 1;
         }
         else{
-            LATAbits.LATA3 = 0;
+            //LATAbits.LATA3 = 0;
         }
         
         
@@ -196,6 +224,9 @@ void main(void) {
                 CreateControlsCommand();
             }
         }
+    
+
+        
     }
     return;
 }
@@ -384,6 +415,11 @@ void ActivatePump(int switchValue){
     }
 }
 void __interrupt() myFunction(){
+    if(PIR3bits.SSP1IF == 1){
+        //I2CStage++;
+        newI2CMessage = 1;
+        PIR3bits.SSP1IF = 0;
+    }
     if(PIR3bits.RCIF == 1){
         int input = RCREG;
         if(currentCommand.receiveId == CONTROL_INPUT){
@@ -395,8 +431,9 @@ void __interrupt() myFunction(){
         }
         inputStage++;
         PIR3bits.RCIF =0;
+
     }
-    else if(PIR3bits.TXIF == 1){
+    if(PIR3bits.TXIF == 1){
         if(currentCommand.sendIt >= currentCommand.sendLimit){
             PIE3bits.TXIE = 0;
             if(currentCommand.receiveLimit <= 0){
@@ -409,5 +446,6 @@ void __interrupt() myFunction(){
         }
         PIR3bits.TXIF = 0;
     }
+    
 }
 

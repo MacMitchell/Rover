@@ -19850,6 +19850,496 @@ extern __bank0 __bit __timeout;
 
 
 
+
+# 1 "./Color_Header.h" 1
+# 30 "./Color_Header.h"
+unsigned char RED = 1;
+unsigned char BLUE = 2;
+unsigned char GREEN = 3;
+
+int frequency = 2700;
+int cycle = 32000000 / 2700;
+# 44 "./Color_Header.h"
+void StartIC2Transmission();
+void EndIC2Transmission();
+void StartWriteRequest();
+void StartReadRequest();
+void WriteChar(char input);
+int ReadChar();
+
+int ReadRed();
+int ReadBlue();
+int ReadGreen();
+int IsColorDataReady();
+void RepeatedStart();
+
+typedef struct colorScheme{
+    int clear;
+    int green;
+    int blue;
+    int red;
+    unsigned char temp;
+    unsigned char ready;
+    unsigned char colorStage;
+    unsigned char allDone;
+} ColorScheme;
+
+void SetUpI2CPins(){
+    SSP1CLKPPSbits.SSP1CLKPPS = 0x13;
+    SSP1DATPPSbits.SSP1DATPPS = 0x14;
+
+    RC3PPS = 0x14;
+    RC4PPS = 0x15;
+
+
+    TRISCbits.TRISC3 = 1;
+    TRISCbits.TRISC4 = 1;
+
+    ANSELCbits.ANSC3 = 0;
+    ANSELCbits.ANSC4 = 0;
+
+    WPUCbits.WPUC3 = 1;
+    WPUCbits.WPUC4 = 1;
+}
+void SetUpIC2Clock(){
+
+
+
+    SSP1ADD = 79;
+}
+void SetUpI2C(){
+    SSP1CON1 =0x28;
+
+    SetUpI2CPins();
+
+    SetUpIC2Clock();
+
+}
+
+
+int IsColorDataReady(){
+    StartIC2Transmission();
+
+    StartWriteRequest();
+
+    char input = (char) 0x93;;
+    WriteChar(input);
+
+
+
+    RepeatedStart();
+
+    StartReadRequest();
+
+
+    int value = ReadChar();
+    value = value & 0x1;
+
+    EndIC2Transmission();
+    return value;
+}
+
+void WriteChar(char input){
+    SSP1BUF = input;
+
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT);
+    PIR3bits.SSP1IF = 0;
+}
+
+int ReadChar(){
+
+    SSP1CON2bits.RCEN = 1;
+    while(!PIR3bits.SSP1IF){}
+    PIR3bits.SSP1IF = 0;
+    int value = SSP1BUF;
+    SSP1CON2bits.ACKDT = 0;
+    return value;
+}
+void StartWriteRequest(){
+    SSP1BUFbits.SSPBUF = 0x39 << 1;;
+
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT);
+    PIR3bits.SSP1IF = 0;
+}
+
+void StartReadRequest(){
+    SSP1BUF = (0x39 << 1) | 1;;
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT);
+    PIR3bits.SSP1IF = 0;
+}
+
+void StartIC2Transmission(){
+    SSP1CON2bits.SEN = 1;
+    PIR3bits.SSP1IF = 0;
+
+    while(!PIR3bits.SSP1IF){}
+    PIR3bits.SSP1IF = 0;
+}
+void EndIC2Transmission(){
+    SSP1CON2bits.PEN = 1;
+
+    while(!PIR3bits.SSP1IF){}
+    PIR3bits.SSP1IF = 0;
+}
+
+void RepeatedStart(){
+    SSP1CON2bits.RSEN = 1;
+
+    while(!PIR3bits.SSP1IF){}
+    PIR3bits.SSP1IF = 0;
+}
+
+int SetUp(){
+    StartIC2Transmission();
+
+    StartWriteRequest();
+
+
+
+    SSP1BUF = 0x80;;
+
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT);
+    PIR3bits.SSP1IF = 0;
+
+
+    SSP1BUF = 0b11;;
+
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT == 1){}
+    PIR3bits.SSP1IF = 0;
+
+    RepeatedStart();
+
+
+
+    StartWriteRequest();
+
+    SSP1BUF = 0x92;;
+    while(!PIR3bits.SSP1IF){}
+    while(SSP1CON2bits.ACKSTAT);
+    PIR3bits.SSP1IF = 0;
+
+
+    RepeatedStart();
+
+
+    StartReadRequest();
+
+    SSP1CON2bits.RCEN = 1;
+    while(!PIR3bits.SSP1IF){}
+    PIR3bits.SSP1IF = 0;
+    int value = SSP1BUF;
+    SSP1CON2bits.ACKDT = 0;
+
+    EndIC2Transmission();
+    if(value == 0xAB){
+        return 1;
+    }
+    return 0;
+}
+
+
+
+int ReadClear(){
+    StartIC2Transmission();
+    StartWriteRequest();
+    char input = (char) 0x94;;
+    WriteChar(input);
+
+
+    RepeatedStart();
+    StartReadRequest();
+
+    int redLow = ReadChar();
+    EndIC2Transmission();
+
+    StartIC2Transmission();
+    StartWriteRequest();
+    input = (char) 0x95;;
+    WriteChar(input);
+    RepeatedStart();
+    StartReadRequest();
+
+    int redHigh = ReadChar();
+    EndIC2Transmission();
+    return (redHigh << 8) + redLow;
+}
+
+int ReadRed(){
+
+    StartIC2Transmission();
+    StartWriteRequest();
+    char input = (char) 0x96;;
+    WriteChar(input);
+
+
+    RepeatedStart();
+    StartReadRequest();
+
+    int redLow = ReadChar();
+
+    EndIC2Transmission();
+
+   StartIC2Transmission();
+
+    StartWriteRequest();
+    input = (char) 0x97;;
+    WriteChar(input);
+    RepeatedStart();
+    StartReadRequest();
+
+    int redHigh = ReadChar();
+    EndIC2Transmission();
+    return (redHigh << 8) + redLow;
+}
+
+int ReadBlue(){
+
+    StartIC2Transmission();
+    StartWriteRequest();
+    char input = (char) 0x9A;;
+    WriteChar(input);
+
+
+    RepeatedStart();
+
+    StartReadRequest();
+
+    int redLow = ReadChar();
+
+    EndIC2Transmission();
+
+    StartIC2Transmission();
+    StartWriteRequest();
+    input = (char) 0x9B;;
+    WriteChar(input);
+    EndIC2Transmission();
+
+
+    StartIC2Transmission();
+    StartReadRequest();
+
+    int redHigh = ReadChar();
+    EndIC2Transmission();
+    return (redHigh << 8) + redLow;
+}
+
+int ReadGreen(){
+
+    StartIC2Transmission();
+    StartWriteRequest();
+    char input = (char) 0x98;;
+    WriteChar(input);
+
+
+    RepeatedStart();
+
+    StartReadRequest();
+
+    int redLow = ReadChar();
+
+    EndIC2Transmission();
+
+    StartIC2Transmission();
+
+    StartWriteRequest();
+
+    input = (char) 0x99;;
+    WriteChar(input);
+    EndIC2Transmission();
+
+
+    StartIC2Transmission();
+    StartReadRequest();
+
+    int redHigh = ReadChar();
+    EndIC2Transmission();
+    return (redHigh << 8) + redLow;
+}
+
+void SelectColourRegister(int colorStage){
+    unsigned char writeValue = 0;
+    switch(colorStage){
+        case 0:writeValue = 0x93;; break;
+        case 1: writeValue = 0x94;; break;
+        case 2: writeValue = 0x95;; break;
+        case 3: writeValue = 0x96;; break;
+        case 4: writeValue = 0x97;; break;
+        case 5: writeValue =0x9A;; break;
+        case 6: writeValue = 0x9B;; break;
+        case 7: writeValue = 0x98;; break;
+        case 8: writeValue = 0x99;; break;
+    }
+    SSP1BUFbits.SSPBUF = writeValue;
+}
+
+void Reset(ColorScheme * colors){
+    colors->colorStage = 0;
+    colors->ready = 0;
+    colors->allDone = 1;
+}
+void StartI2C(){
+    PIR3bits.SSP1IF = 0;
+    SSP1CON2bits.SEN = 1;
+}
+void EndI2C(){
+    SSP1CON2bits.PEN = 1;
+}
+void WriteI2C(){
+    PIR3bits.SSP1IF = 0;
+    SSP1BUFbits.SSPBUF = 0x39 << 1;;
+}
+void ReadAddressI2C(){
+    PIR3bits.SSP1IF = 0;
+    SSP1BUFbits.SSPBUF = (0x39 << 1) | 1;;
+}
+void StartReadI2C(){
+    PIR3bits.SSP1IF = 0;
+    SSP1BUF = (0x39 << 1) | 1;;
+}
+void ReadI2C(){
+    SSP1CON2bits.RCEN = 1;
+}
+void RepeatI2C(){
+
+    SSP1CON2bits.RSEN = 1;
+}
+void IncrementColorStage(ColorScheme * colors){
+    colors->colorStage = colors->colorStage +1;
+
+}
+void LoadTemp(ColorScheme * colors, unsigned char value){
+    colors->temp = value;
+}
+void ReadColorReady(ColorScheme * colors, unsigned char buffer){
+    buffer = buffer & 0x1;
+    colors->ready = buffer;
+    if(colors->ready == 1){
+        IncrementColorStage(colors);
+    }
+}
+
+void GetValueAndEndI2C(ColorScheme* colors){
+
+    unsigned char value = SSP1BUF;
+    switch(colors->colorStage){
+
+        case 0: ReadColorReady(colors,value); break;
+        case 1: LoadTemp(colors,value); IncrementColorStage(colors);break;
+        case 2: colors->clear = colors->temp + (value<<8); IncrementColorStage(colors); break;
+        case 3: LoadTemp(colors,value); IncrementColorStage(colors);;
+        case 4: colors->red = colors->temp + (value <<8); IncrementColorStage(colors); break;
+        case 5: LoadTemp(colors,value); IncrementColorStage(colors);break;
+        case 6: colors->blue = colors->temp + (value << 8); IncrementColorStage(colors); break;
+        case 7: LoadTemp(colors,value);IncrementColorStage(colors); break;
+        case 8: colors->green = colors->temp + (value << 8); Reset(colors); break;
+    }
+    EndI2C();
+
+}
+
+unsigned char UpdateColors(ColorScheme * colors, int stageValue){
+    switch(stageValue){
+        case 0: StartI2C();break;
+        case 1: WriteI2C(); break;
+        case 2: SelectColourRegister(colors->colorStage); break;
+        case 3: RepeatI2C(); break;
+        case 4: ReadAddressI2C(); break;
+        case 5: ReadI2C(); break;
+        case 6: GetValueAndEndI2C(colors); break;
+    }
+    return (stageValue+1) % 7;
+}
+
+void PlayTune(unsigned char color){
+    if(color == RED){
+            DAC1CON1bits.DAC1R = 31;
+            _delay((unsigned long)((2700 /262/2)*(32000000/4000.0)));
+            DAC1CON1bits.DAC1R = 0;
+            _delay((unsigned long)((2700 /262/2)*(32000000/4000.0)));
+        }
+        else if(color == BLUE){
+            DAC1CON1bits.DAC1R = 31;
+            _delay((unsigned long)((2700/ 440/2)*(32000000/4000.0)));
+            DAC1CON1bits.DAC1R = 0;
+            _delay((unsigned long)((2700/ 440/2)*(32000000/4000.0)));
+        }
+        else{
+            DAC1CON1bits.DAC1R = 31;
+            _delay((unsigned long)((2700/ 349/2)*(32000000/4000.0)));
+            DAC1CON1bits.DAC1R = 0;
+            _delay((unsigned long)((2700/ 349/2)*(32000000/4000.0)));
+        }
+}
+
+
+void SetUpColorSensor(){
+    SetUpI2C();
+    int result = SetUp();
+    if(result == 1){
+        LATAbits.LATA0 = 1;
+        LATAbits.LATA1 = 1;
+        LATAbits.LATA2 = 1;
+        LATAbits.LATA3 = 1;
+        _delay((unsigned long)((500)*(32000000/4000.0)));
+        LATAbits.LATA0 = 0;
+        LATAbits.LATA1 = 0;
+        LATAbits.LATA2 = 0;
+        LATAbits.LATA3 = 0;
+        _delay((unsigned long)((500)*(32000000/4000.0)));
+
+        LATAbits.LATA0 = 1;
+        LATAbits.LATA1 = 1;
+        LATAbits.LATA2 = 1;
+        LATAbits.LATA3 = 1;
+        _delay((unsigned long)((500)*(32000000/4000.0)));
+        LATAbits.LATA0 = 0;
+        LATAbits.LATA1 = 0;
+        LATAbits.LATA2 = 0;
+        LATAbits.LATA3 = 0;
+        _delay((unsigned long)((500)*(32000000/4000.0)));
+
+    }
+}
+
+void ColorSensor(unsigned char *newI2CMessage,int *I2CStage, ColorScheme* colors, unsigned char * color){
+    if(*newI2CMessage == 1 ){
+            *newI2CMessage =0;
+            *I2CStage = UpdateColors(colors,*I2CStage);
+
+            if(colors->allDone){
+                if(colors->red > colors->blue && colors->red > colors->green){
+                    LATAbits.LATA0 = 1;
+                    LATAbits.LATA1 = 0;
+                    LATAbits.LATA2 = 0;
+                    *color = RED;
+                }
+                else if(colors->blue > colors->red && colors->blue > colors->green){
+                    LATAbits.LATA0 = 0;
+                    LATAbits.LATA1 = 1;
+                    LATAbits.LATA2 = 0;
+                    *color = BLUE;
+                }
+                else if(colors->green > colors->blue && colors->green > colors->red){
+                    LATAbits.LATA0 = 0;
+                    LATAbits.LATA1 = 0;
+                    LATAbits.LATA2 = 1;
+                    *color = GREEN;
+                }
+            }
+        }
+}
+# 46 "motorMain.c" 2
+
+
+
+
+
+
 struct controller{
     int rightX;
     int rightY;
@@ -19914,6 +20404,16 @@ void SetUpPump();
 void ActivatePump(int switchValue);
 void MovePumpArm(int switchValue);
 
+
+
+
+unsigned char color=0;
+ColorScheme colors;
+
+int I2CStage = 0;
+unsigned char newI2CMessage = 1;
+
+int counter = 0;
 void main(void) {
 
    TRISAbits.TRISA5 = 1;
@@ -19959,40 +20459,51 @@ void main(void) {
     RC1STAbits.CREN = 1;
 
 
-    INTCONbits.GIE = 1;
+    SetUpColorSensor();
+
+
+
+
+
     INTCONbits.PEIE = 1;
     PIE3bits.RCIE = 1;
     PIE3bits.TXIE = 1;
+    PIE3bits.SSP1IE = 1;
+    INTCONbits.GIE = 1;
 
 
     while(1){
         if(controls.switchA <= SWITCH_MIN){
-            LATAbits.LATA0 = 1;
+
             MovePumpArm(controls.switchC);
             ActivatePump(controls.switchD);
+
+            if(controls.switchB <= SWITCH_MIN){
+                ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
+            }
         }
         else{
-            LATAbits.LATA0 = 0;
+
             MovePumpArm(SWITCH_MID);
             ActivatePump(SWITCH_MAX);
         }
         if(controls.switchB <= SWITCH_MIN){
-            LATAbits.LATA1 = 1;
+
         }
         else{
-            LATAbits.LATA1 = 0;
+
         }
         if(controls.switchC == SWITCH_MID){
-            LATAbits.LATA2 = 1;
+
         }
         else{
-            LATAbits.LATA2 = 0;
+
         }
         if(controls.switchD <= SWITCH_MIN){
-            LATAbits.LATA3 = 1;
+
         }
         else{
-            LATAbits.LATA3 = 0;
+
         }
 
 
@@ -20004,6 +20515,9 @@ void main(void) {
                 CreateControlsCommand();
             }
         }
+
+
+
     }
     return;
 }
@@ -20144,6 +20658,8 @@ void CreateControlsCommand(){
 
 
 void SetUpPumpArm(){
+
+
     TRISBbits.TRISB0 = 0;
     TRISBbits.TRISB1 = 0;
     ANSELBbits.ANSB0 = 0;
@@ -20155,6 +20671,8 @@ void SetUpPumpArm(){
 }
 
 void SetUpPump(){
+
+
     TRISBbits.TRISB2 = 0;
     TRISBbits.TRISB3 = 0;
     ANSELBbits.ANSB2 = 0;
@@ -20188,6 +20706,11 @@ void ActivatePump(int switchValue){
     }
 }
 void __attribute__((picinterrupt(("")))) myFunction(){
+    if(PIR3bits.SSP1IF == 1){
+
+        newI2CMessage = 1;
+        PIR3bits.SSP1IF = 0;
+    }
     if(PIR3bits.RCIF == 1){
         int input = RCREG;
         if(currentCommand.receiveId == CONTROL_INPUT){
@@ -20199,8 +20722,9 @@ void __attribute__((picinterrupt(("")))) myFunction(){
         }
         inputStage++;
         PIR3bits.RCIF =0;
+
     }
-    else if(PIR3bits.TXIF == 1){
+    if(PIR3bits.TXIF == 1){
         if(currentCommand.sendIt >= currentCommand.sendLimit){
             PIE3bits.TXIE = 0;
             if(currentCommand.receiveLimit <= 0){
@@ -20213,4 +20737,5 @@ void __attribute__((picinterrupt(("")))) myFunction(){
         }
         PIR3bits.TXIF = 0;
     }
+
 }

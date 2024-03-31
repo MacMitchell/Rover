@@ -1,4 +1,4 @@
-# 1 "motorMain.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\sources\\c99\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,49 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "motorMain.c" 2
-
-
-
-
-
-
-
-#pragma config FEXTOSC = ECH
-#pragma config RSTOSC = HFINT32
-#pragma config CLKOUTEN = OFF
-#pragma config CSWEN = ON
-#pragma config FCMEN = OFF
-
-
-#pragma config MCLRE = ON
-#pragma config PWRTE = OFF
-#pragma config LPBOREN = OFF
-#pragma config BOREN = ON
-#pragma config BORV = LO
-#pragma config ZCD = OFF
-#pragma config PPS1WAY = ON
-#pragma config STVREN = ON
-
-
-#pragma config WDTCPS = WDTCPS_31
-#pragma config WDTE = OFF
-#pragma config WDTCWS = WDTCWS_7
-#pragma config WDTCCS = SC
-
-
-#pragma config WRT = OFF
-#pragma config SCANE = available
-#pragma config LVP = ON
-
-
-#pragma config CP = OFF
-#pragma config CPD = OFF
-
-
-
-
-
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -19846,896 +19804,184 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\xc.h" 2 3
-# 42 "motorMain.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 
 
 
 
-# 1 "./Color_Header.h" 1
-# 30 "./Color_Header.h"
-unsigned char RED = 1;
-unsigned char BLUE = 2;
-unsigned char GREEN = 3;
-
-int frequency = 2700;
-int cycle = 32000000 / 2700;
-# 44 "./Color_Header.h"
-void StartIC2Transmission();
-void EndIC2Transmission();
-void StartWriteRequest();
-void StartReadRequest();
-void WriteChar(char input);
-int ReadChar();
-
-int ReadRed();
-int ReadBlue();
-int ReadGreen();
-int IsColorDataReady();
-void RepeatedStart();
-
-typedef struct colorScheme{
-    int clear;
-    int green;
-    int blue;
-    int red;
-    unsigned char temp;
-    unsigned char ready;
-    unsigned char colorStage;
-    unsigned char allDone;
-} ColorScheme;
-
-void SetUpI2CPins(){
-    SSP1CLKPPSbits.SSP1CLKPPS = 0x13;
-    SSP1DATPPSbits.SSP1DATPPS = 0x14;
-
-    RC3PPS = 0x14;
-    RC4PPS = 0x15;
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
+{
+ volatile unsigned char *cp = to;
+# 22 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) from;
+ NVMADRH = 0x70;
+ while (size--) {
+  NVMCON1bits.RD = 1;
+  *cp++ = NVMDATL;
+  NVMADRL++;
+ }
 
 
-    TRISCbits.TRISC3 = 1;
-    TRISCbits.TRISC4 = 1;
-
-    ANSELCbits.ANSC3 = 0;
-    ANSELCbits.ANSC4 = 0;
-
-    WPUCbits.WPUC3 = 1;
-    WPUCbits.WPUC4 = 1;
-}
-void SetUpIC2Clock(){
-
-
-
-    SSP1ADD = 79;
-}
-void SetUpI2C(){
-    SSP1CON1 =0x28;
-
-    SetUpI2CPins();
-
-    SetUpIC2Clock();
 
 }
 
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
+{
+ const unsigned char *ptr =from;
+# 69 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) to - 1U;
+ NVMADRH = 0x70;
+ NVMDATH = 0;
+ while (size--) {
+  while (NVMCON1bits.WR) {
+   continue;
+  }
+  NVMDATL = *ptr++;
+  NVMADRL++;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  NVMCON1bits.WREN = 1;
+  NVMCON2 = 0x55;
+  NVMCON2 = 0xAA;
+  NVMCON1bits.WR = 1;
+  while (NVMCON1bits.WR) {
+   continue;
+  }
+  NVMCON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
 
-int IsColorDataReady(){
-    StartIC2Transmission();
 
-    StartWriteRequest();
-
-    char input = (char) 0x93;;
-    WriteChar(input);
-
-
-
-    RepeatedStart();
-
-    StartReadRequest();
-
-
-    int value = ReadChar();
-    value = value & 0x1;
-
-    EndIC2Transmission();
-    return value;
-}
-
-void WriteChar(char input){
-    SSP1BUF = input;
-
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT);
-    PIR3bits.SSP1IF = 0;
-}
-
-int ReadChar(){
-
-    SSP1CON2bits.RCEN = 1;
-    while(!PIR3bits.SSP1IF){}
-    PIR3bits.SSP1IF = 0;
-    int value = SSP1BUF;
-    SSP1CON2bits.ACKDT = 0;
-    return value;
-}
-void StartWriteRequest(){
-    SSP1BUFbits.SSPBUF = 0x39 << 1;;
-
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT);
-    PIR3bits.SSP1IF = 0;
-}
-
-void StartReadRequest(){
-    SSP1BUF = (0x39 << 1) | 1;;
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT);
-    PIR3bits.SSP1IF = 0;
-}
-
-void StartIC2Transmission(){
-    SSP1CON2bits.SEN = 1;
-    PIR3bits.SSP1IF = 0;
-
-    while(!PIR3bits.SSP1IF){}
-    PIR3bits.SSP1IF = 0;
-}
-void EndIC2Transmission(){
-    SSP1CON2bits.PEN = 1;
-
-    while(!PIR3bits.SSP1IF){}
-    PIR3bits.SSP1IF = 0;
-}
-
-void RepeatedStart(){
-    SSP1CON2bits.RSEN = 1;
-
-    while(!PIR3bits.SSP1IF){}
-    PIR3bits.SSP1IF = 0;
-}
-
-int SetUp(){
-    StartIC2Transmission();
-
-    StartWriteRequest();
-
-
-
-    SSP1BUF = 0x80;;
-
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT);
-    PIR3bits.SSP1IF = 0;
-
-
-    SSP1BUF = 0b11;;
-
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT == 1){}
-    PIR3bits.SSP1IF = 0;
-
-    RepeatedStart();
-
-
-
-    StartWriteRequest();
-
-    SSP1BUF = 0x92;;
-    while(!PIR3bits.SSP1IF){}
-    while(SSP1CON2bits.ACKSTAT);
-    PIR3bits.SSP1IF = 0;
-
-
-    RepeatedStart();
-
-
-    StartReadRequest();
-
-    SSP1CON2bits.RCEN = 1;
-    while(!PIR3bits.SSP1IF){}
-    PIR3bits.SSP1IF = 0;
-    int value = SSP1BUF;
-    SSP1CON2bits.ACKDT = 0;
-
-    EndIC2Transmission();
-    if(value == 0xAB){
-        return 1;
-    }
-    return 0;
-}
-
-
-
-int ReadClear(){
-    StartIC2Transmission();
-    StartWriteRequest();
-    char input = (char) 0x94;;
-    WriteChar(input);
-
-
-    RepeatedStart();
-    StartReadRequest();
-
-    int redLow = ReadChar();
-    EndIC2Transmission();
-
-    StartIC2Transmission();
-    StartWriteRequest();
-    input = (char) 0x95;;
-    WriteChar(input);
-    RepeatedStart();
-    StartReadRequest();
-
-    int redHigh = ReadChar();
-    EndIC2Transmission();
-    return (redHigh << 8) + redLow;
-}
-
-int ReadRed(){
-
-    StartIC2Transmission();
-    StartWriteRequest();
-    char input = (char) 0x96;;
-    WriteChar(input);
-
-
-    RepeatedStart();
-    StartReadRequest();
-
-    int redLow = ReadChar();
-
-    EndIC2Transmission();
-
-   StartIC2Transmission();
-
-    StartWriteRequest();
-    input = (char) 0x97;;
-    WriteChar(input);
-    RepeatedStart();
-    StartReadRequest();
-
-    int redHigh = ReadChar();
-    EndIC2Transmission();
-    return (redHigh << 8) + redLow;
-}
-
-int ReadBlue(){
-
-    StartIC2Transmission();
-    StartWriteRequest();
-    char input = (char) 0x9A;;
-    WriteChar(input);
-
-
-    RepeatedStart();
-
-    StartReadRequest();
-
-    int redLow = ReadChar();
-
-    EndIC2Transmission();
-
-    StartIC2Transmission();
-    StartWriteRequest();
-    input = (char) 0x9B;;
-    WriteChar(input);
-    EndIC2Transmission();
-
-
-    StartIC2Transmission();
-    StartReadRequest();
-
-    int redHigh = ReadChar();
-    EndIC2Transmission();
-    return (redHigh << 8) + redLow;
-}
-
-int ReadGreen(){
-
-    StartIC2Transmission();
-    StartWriteRequest();
-    char input = (char) 0x98;;
-    WriteChar(input);
-
-
-    RepeatedStart();
-
-    StartReadRequest();
-
-    int redLow = ReadChar();
-
-    EndIC2Transmission();
-
-    StartIC2Transmission();
-
-    StartWriteRequest();
-
-    input = (char) 0x99;;
-    WriteChar(input);
-    EndIC2Transmission();
-
-
-    StartIC2Transmission();
-    StartReadRequest();
-
-    int redHigh = ReadChar();
-    EndIC2Transmission();
-    return (redHigh << 8) + redLow;
-}
-
-void SelectColourRegister(int colorStage){
-    unsigned char writeValue = 0;
-    switch(colorStage){
-        case 0:writeValue = 0x93;; break;
-        case 1: writeValue = 0x94;; break;
-        case 2: writeValue = 0x95;; break;
-        case 3: writeValue = 0x96;; break;
-        case 4: writeValue = 0x97;; break;
-        case 5: writeValue =0x9A;; break;
-        case 6: writeValue = 0x9B;; break;
-        case 7: writeValue = 0x98;; break;
-        case 8: writeValue = 0x99;; break;
-    }
-    SSP1BUFbits.SSPBUF = writeValue;
-}
-
-void Reset(ColorScheme * colors){
-    colors->colorStage = 0;
-    colors->ready = 0;
-    colors->allDone = 1;
-}
-void StartI2C(){
-    PIR3bits.SSP1IF = 0;
-    SSP1CON2bits.SEN = 1;
-}
-void EndI2C(){
-    SSP1CON2bits.PEN = 1;
-}
-void WriteI2C(){
-    PIR3bits.SSP1IF = 0;
-    SSP1BUFbits.SSPBUF = 0x39 << 1;;
-}
-void ReadAddressI2C(){
-    PIR3bits.SSP1IF = 0;
-    SSP1BUFbits.SSPBUF = (0x39 << 1) | 1;;
-}
-void StartReadI2C(){
-    PIR3bits.SSP1IF = 0;
-    SSP1BUF = (0x39 << 1) | 1;;
-}
-void ReadI2C(){
-    SSP1CON2bits.RCEN = 1;
-}
-void RepeatI2C(){
-
-    SSP1CON2bits.RSEN = 1;
-}
-void IncrementColorStage(ColorScheme * colors){
-    colors->colorStage = colors->colorStage +1;
-
-}
-void LoadTemp(ColorScheme * colors, unsigned char value){
-    colors->temp = value;
-}
-void ReadColorReady(ColorScheme * colors, unsigned char buffer){
-    buffer = buffer & 0x1;
-    colors->ready = buffer;
-    if(colors->ready == 1){
-        IncrementColorStage(colors);
-    }
-}
-
-void GetValueAndEndI2C(ColorScheme* colors){
-
-    unsigned char value = SSP1BUF;
-    switch(colors->colorStage){
-
-        case 0: ReadColorReady(colors,value); break;
-        case 1: LoadTemp(colors,value); IncrementColorStage(colors);break;
-        case 2: colors->clear = colors->temp + (value<<8); IncrementColorStage(colors); break;
-        case 3: LoadTemp(colors,value); IncrementColorStage(colors);;
-        case 4: colors->red = colors->temp + (value <<8); IncrementColorStage(colors); break;
-        case 5: LoadTemp(colors,value); IncrementColorStage(colors);break;
-        case 6: colors->blue = colors->temp + (value << 8); IncrementColorStage(colors); break;
-        case 7: LoadTemp(colors,value);IncrementColorStage(colors); break;
-        case 8: colors->green = colors->temp + (value << 8); Reset(colors); break;
-    }
-    EndI2C();
 
 }
 
-unsigned char UpdateColors(ColorScheme * colors, int stageValue){
-    switch(stageValue){
-        case 0: StartI2C();break;
-        case 1: WriteI2C(); break;
-        case 2: SelectColourRegister(colors->colorStage); break;
-        case 3: RepeatI2C(); break;
-        case 4: ReadAddressI2C(); break;
-        case 5: ReadI2C(); break;
-        case 6: GetValueAndEndI2C(colors); break;
-    }
-    return stageValue % 7;
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-void PlayTune(unsigned char color){
-    if(color == RED){
-            DAC1CON1bits.DAC1R = 31;
-            _delay((unsigned long)((2700 /262/2)*(32000000/4000.0)));
-            DAC1CON1bits.DAC1R = 0;
-            _delay((unsigned long)((2700 /262/2)*(32000000/4000.0)));
-        }
-        else if(color == BLUE){
-            DAC1CON1bits.DAC1R = 31;
-            _delay((unsigned long)((2700/ 440/2)*(32000000/4000.0)));
-            DAC1CON1bits.DAC1R = 0;
-            _delay((unsigned long)((2700/ 440/2)*(32000000/4000.0)));
-        }
-        else{
-            DAC1CON1bits.DAC1R = 31;
-            _delay((unsigned long)((2700/ 349/2)*(32000000/4000.0)));
-            DAC1CON1bits.DAC1R = 0;
-            _delay((unsigned long)((2700/ 349/2)*(32000000/4000.0)));
-        }
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
 
-void SetUpColorSensor(){
-    SetUpI2C();
-    int result = SetUp();
-    if(result == 1){
-        LATAbits.LATA0 = 1;
-        LATAbits.LATA1 = 1;
-        LATAbits.LATA2 = 1;
-        LATAbits.LATA3 = 1;
-        _delay((unsigned long)((500)*(32000000/4000.0)));
-        LATAbits.LATA0 = 0;
-        LATAbits.LATA1 = 0;
-        LATAbits.LATA2 = 0;
-        LATAbits.LATA3 = 0;
-        _delay((unsigned long)((500)*(32000000/4000.0)));
-
-        LATAbits.LATA0 = 1;
-        LATAbits.LATA1 = 1;
-        LATAbits.LATA2 = 1;
-        LATAbits.LATA3 = 1;
-        _delay((unsigned long)((500)*(32000000/4000.0)));
-        LATAbits.LATA0 = 0;
-        LATAbits.LATA1 = 0;
-        LATAbits.LATA2 = 0;
-        LATAbits.LATA3 = 0;
-        _delay((unsigned long)((500)*(32000000/4000.0)));
-
-    }
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
-void ColorSensor(unsigned char *newI2CMessage,int *I2CStage, ColorScheme* colors, unsigned char * color){
-    if(*newI2CMessage == 1 ){
-            *newI2CMessage =0;
-            *I2CStage = UpdateColors(colors,*I2CStage);
-
-            if(colors->allDone){
-                if(colors->red > colors->blue && colors->red > colors->green){
-                    LATAbits.LATA0 = 1;
-                    LATAbits.LATA1 = 0;
-                    LATAbits.LATA2 = 0;
-                    *color = RED;
-                }
-                else if(colors->blue > colors->red && colors->blue > colors->green){
-                    LATAbits.LATA0 = 0;
-                    LATAbits.LATA1 = 1;
-                    LATAbits.LATA2 = 0;
-                    *color = BLUE;
-                }
-                else if(colors->green > colors->blue && colors->green > colors->red){
-                    LATAbits.LATA0 = 0;
-                    LATAbits.LATA1 = 0;
-                    LATAbits.LATA2 = 1;
-                    *color = GREEN;
-                }
-            }
-        }
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
 }
-# 46 "motorMain.c" 2
+#pragma warning pop
 
-
-
-
-
-
-struct controller{
-    int rightX;
-    int rightY;
-    int leftY;
-    int leftX;
-    int switchA;
-    int switchB;
-    int switchC;
-    int switchD;
-    int potentionmeterA;
-    int potentionmeterB;
-    int temp;
-} Controls;
-
-
-struct command{
-    int sendLimit;
-    int sendIt;
-    int sendId;
-    unsigned char* toSend;
-
-    int receiveIt;
-    int receiveLimit;
-    int receiveId;
-
-    unsigned char done;
-} Command;
-
-const int CONTROL_INPUT =1;
-int CONTROL_OUTPUT = 1;
-
-int currentInput =0;
-int inputStage = 0;
-
-unsigned char GetUserDataCommand[6] = {0xFE, 0x19, 0x01, 0x5,0x00,0x00};
-unsigned char EnableLaserScopeCommand[7] = {0xFE, 0x19, 0x01, 0x08, 0x01, 0x00, 0x01};
-
-unsigned char TurnLeftCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x01, 0x32, 0x02, 0x32};
-unsigned char TurnRightCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x02, 0x32, 0x01, 0x32};
-unsigned char MoveForwardCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x01, 0x32, 0x01, 0x32};
-unsigned char MoveBackwardCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x02, 0x32, 0x02, 0x32};
-unsigned char Break[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-int commandIt = 0;
-unsigned int SWITCH_MAX = 2000;
-unsigned int SWITCH_MIN = 1000;
-unsigned int SWITCH_MID = 1500;
-struct controller controls;
-struct command currentCommand;
-void __attribute__((picinterrupt(("")))) myFunction();
-void CreateControlsCommand();
-void CreateTurnRightCommmand(unsigned int pwm);
-void CreateTurnLeftCommmand(unsigned int pwm);
-void CreateMoveForwardCommmand(unsigned int pwm);
-void CreateMoveBackwardCommmand(unsigned int pwm);
-void CreateBreak();
-void drive();
-
-
-void SetUpPumpArm();
-void SetUpPump();
-void ActivatePump(int switchValue);
-void MovePumpArm(int switchValue);
-
-
-
-
-unsigned char color=0;
-ColorScheme colors;
-
-int I2CStage = 0;
-unsigned char newI2CMessage = 1;
-
-int counter = 0;
-void main(void) {
-
-   TRISAbits.TRISA5 = 1;
-    ANSELAbits.ANSA5 = 0;
-
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 0;
-    TRISAbits.TRISA2 = 0;
-    TRISAbits.TRISA3 = 0;
-
-
-    LATAbits.LATA0 = 0;
-    LATAbits.LATA1 = 0;
-    LATAbits.LATA2 = 0;
-    LATAbits.LATA3 = 0;
-
-    SetUpPumpArm();
-    SetUpPump();
-
-    BAUD1CONbits.BRG16=1;
-
-    TX1STAbits.BRGH = 0x1;
-
-
-
-    RC5PPS = 0x10;
-    TRISCbits.TRISC5 = 0;
-
-    RXPPSbits.RXPPS = 0x16;
-    TRISCbits.TRISC6 = 1;
-    ANSELCbits.ANSC6 = 0;
-
-
-    SP1BRGLbits.SP1BRGL = 68;
-
-    CreateControlsCommand();
-
-
-    RC1STAbits.SPEN = 1;
-    TX1STAbits.TXEN =1;
-    TX1STAbits.SYNC=0;
-
-    RC1STAbits.CREN = 1;
-
-
-    SetUpColorSensor();
-
-
-
-
-
-    INTCONbits.PEIE = 1;
-    PIE3bits.RCIE = 1;
-    PIE3bits.TXIE = 1;
-    PIE3bits.SSP1IE = 1;
-    INTCONbits.GIE = 1;
-
-
-    while(1){
-        if(controls.switchA <= SWITCH_MIN){
-
-            MovePumpArm(controls.switchC);
-            ActivatePump(controls.switchD);
-
-            if(controls.switchB <= SWITCH_MIN){
-                ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
-            }
-        }
-        else{
-
-            MovePumpArm(SWITCH_MID);
-            ActivatePump(SWITCH_MAX);
-        }
-        if(controls.switchB <= SWITCH_MIN){
-
-        }
-        else{
-
-        }
-        if(controls.switchC == SWITCH_MID){
-
-        }
-        else{
-
-        }
-        if(controls.switchD <= SWITCH_MIN){
-
-        }
-        else{
-
-        }
-
-
-        if(currentCommand.done){
-            if(currentCommand.sendId == CONTROL_INPUT){
-                drive();
-            }
-            else{
-                CreateControlsCommand();
-            }
-        }
-
-
-
-    }
-    return;
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
 }
 
-void GetControllerInput(int input){
-    if(currentCommand.receiveIt <0 ){
-        return;
-    }
-    switch(currentCommand.receiveIt){
-        case 6: controls.temp = input; break;
-        case 7: controls.rightX = controls.temp + (input << 8); break;
-        case 8: controls.temp = input; break;
-        case 9: controls.rightY = controls.temp + (input << 8); break;
-        case 10: controls.temp = input; break;
-        case 11: controls.leftY = controls.temp + (input << 8); break;
-        case 12: controls.temp = input; break;
-        case 13: controls.leftX = (input << 8) + controls.temp; break;
-        case 14: controls.temp = input; break;
-        case 15: controls.switchA = controls.temp + (input << 8); break;
-        case 16: controls.temp = input; break;
-        case 17: controls.switchB = controls.temp + (input << 8); break;
-        case 18: controls.temp = input; break;
-        case 19: controls.switchC = controls.temp + (input << 8); break;
-        case 20: controls.temp = input; break;
-        case 21: controls.switchD = controls.temp + (input << 8); break;
-        case 22: controls.temp = input; break;
-        case 23: controls.potentionmeterA = controls.temp + (input << 8); break;
-        case 24: controls.temp = input; break;
-        case 25: controls.potentionmeterB = controls.temp + (input << 8); currentInput = 0;break;
-
-    }
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
 }
 
-void drive(){
-    unsigned int power = 75;
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
 
-    if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
-        CreateTurnRightCommmand(power);
-    }else if((controls.rightX <= 0x514) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
-        CreateTurnLeftCommmand(power);
-    }else if((controls.rightY >= 0x6A4) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
-        CreateMoveForwardCommmand(power);
-    }else if((controls.rightY <= 0x514) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
-        CreateMoveBackwardCommmand(power);
-    }else if((controls.rightY >= 0x546 && controls.rightY <= 0x672) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
-        CreateBreak();
-    }
-    else{
-        CreateControlsCommand();
-    }
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }
 
-void CreateTurnRightCommmand(unsigned int pwm){
-    currentCommand.sendId = 3;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 10;
-    currentCommand.receiveId = 0;
-    currentCommand.receiveLimit = 0;
-    currentCommand.receiveIt = 0;
-    currentCommand.done = 0;
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
 
-    TurnRightCommand[7] = pwm;
-    TurnRightCommand[9] = pwm;
-    currentCommand.toSend = TurnRightCommand;
-    PIE3bits.TXIE = 1;
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
 }
 
-void CreateTurnLeftCommmand(unsigned int pwm){
-    currentCommand.sendId = 4;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 10;
-    currentCommand.receiveId = 0;
-    currentCommand.receiveLimit = 0;
-    currentCommand.receiveIt = 0;
-    currentCommand.done = 0;
-
-    TurnLeftCommand[7] = pwm;
-    TurnLeftCommand[9] = pwm;
-    currentCommand.toSend = TurnLeftCommand;
-    PIE3bits.TXIE = 1;
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
-void CreateMoveForwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 5;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 10;
-    currentCommand.receiveId = 0;
-    currentCommand.receiveLimit = 0;
-    currentCommand.receiveIt = 0;
-    currentCommand.done = 0;
-
-    MoveForwardCommand[7] = pwm;
-    MoveForwardCommand[9] = pwm;
-    currentCommand.toSend = MoveForwardCommand;
-    PIE3bits.TXIE = 1;
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
 }
 
-void CreateMoveBackwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 6;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 10;
-    currentCommand.receiveId = 0;
-    currentCommand.receiveLimit = 0;
-    currentCommand.receiveIt = 0;
-    currentCommand.done = 0;
-
-    MoveBackwardCommand[7] = pwm;
-    MoveBackwardCommand[9] = pwm;
-    currentCommand.toSend = MoveBackwardCommand;
-    PIE3bits.TXIE = 1;
-}
-
-void CreateBreak(){
-    currentCommand.sendId = 7;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 10;
-    currentCommand.receiveId = 0;
-    currentCommand.receiveLimit = 0;
-    currentCommand.receiveIt = 0;
-    currentCommand.done = 0;
-
-    currentCommand.toSend = Break;
-    PIE3bits.TXIE = 1;
-}
-
-void CreateControlsCommand(){
-    currentCommand.receiveId = CONTROL_INPUT;
-    currentCommand.receiveLimit = 26;
-    currentCommand.receiveIt = 0;
-    currentCommand.sendId = CONTROL_OUTPUT;
-    currentCommand.toSend = (unsigned char*) GetUserDataCommand;
-    currentCommand.sendIt = 0;
-    currentCommand.sendLimit = 6;
-    currentCommand.done = 0;
-    PIE3bits.TXIE = 1;
-}
-
-
-
-void SetUpPumpArm(){
-
-
-    TRISBbits.TRISB0 = 0;
-    TRISBbits.TRISB1 = 0;
-    ANSELBbits.ANSB0 = 0;
-    ANSELBbits.ANSB1 = 0;
-
-    LATBbits.LATB0 = 0;
-    LATBbits.LATB1 = 0;
-
-}
-
-void SetUpPump(){
-
-
-    TRISBbits.TRISB2 = 0;
-    TRISBbits.TRISB3 = 0;
-    ANSELBbits.ANSB2 = 0;
-    ANSELBbits.ANSB3 = 0;
-
-    LATBbits.LATB2 = 0;
-    LATBbits.LATB3 = 0;
-}
-
-void MovePumpArm(int switchValue){
-    LATBbits.LATB0 = 0;
-    LATBbits.LATB1 = 0;
-    if(switchValue == SWITCH_MIN){
-            LATBbits.LATB0 = 1;
-            LATBbits.LATB1 = 0;
-    }
-    else if(switchValue == SWITCH_MAX){
-            LATBbits.LATB0 = 0;
-            LATBbits.LATB1 = 1;
-    }
-}
-
-void ActivatePump(int switchValue){
-    if(switchValue <= SWITCH_MIN){
-        LATBbits.LATB2 = 1;
-        LATBbits.LATB3 = 0;
-    }
-    else{
-        LATBbits.LATB2 = 0;
-        LATBbits.LATB3 = 0;
-    }
-}
-void __attribute__((picinterrupt(("")))) myFunction(){
-    if(PIR3bits.SSP1IF == 1){
-
-        newI2CMessage = 1;
-        PIR3bits.SSP1IF = 0;
-    }
-    if(PIR3bits.RCIF == 1){
-        int input = RCREG;
-        if(currentCommand.receiveId == CONTROL_INPUT){
-            GetControllerInput(input);
-            currentCommand.receiveIt = currentCommand.receiveIt + 1;
-        }
-        if(currentCommand.receiveIt >= currentCommand.receiveLimit){
-            currentCommand.done = 1;
-        }
-        inputStage++;
-        PIR3bits.RCIF =0;
-
-    }
-    if(PIR3bits.TXIF == 1){
-        if(currentCommand.sendIt >= currentCommand.sendLimit){
-            PIE3bits.TXIE = 0;
-            if(currentCommand.receiveLimit <= 0){
-                currentCommand.done = 1;
-            }
-        }
-        else{
-            TX1REGbits.TX1REG = currentCommand.toSend[currentCommand.sendIt];
-            currentCommand.sendIt = currentCommand.sendIt + 1;
-        }
-        PIR3bits.TXIF = 0;
-    }
-
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }
