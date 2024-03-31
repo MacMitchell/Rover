@@ -261,8 +261,9 @@ void GetControllerInput(int input){
 }
 
 void drive(){
-    unsigned int power = 75;
     
+    unsigned int power = (controls.potentionmeterB - 0x3E8) * (100.0/1000.00);
+    //unsigned int power = 100;
     if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
         CreateTurnRightCommmand(power);
     }else if((controls.rightX <= 0x514) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){

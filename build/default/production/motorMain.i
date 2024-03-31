@@ -20278,6 +20278,11 @@ void PlayTune(unsigned char color){
 
 
 void SetUpColorSensor(){
+
+
+
+
+
     SetUpI2C();
     int result = SetUp();
     if(result == 1){
@@ -20552,7 +20557,8 @@ void GetControllerInput(int input){
 }
 
 void drive(){
-    unsigned int power = 75;
+
+    unsigned int power = (controls.potentionmeterB - 0x3E8) * (100.0/1000.00);
 
     if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
         CreateTurnRightCommmand(power);

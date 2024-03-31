@@ -53,14 +53,20 @@
 [v _UpdateColors UpdateColors `(uc  1 e 1 0 ]
 "461
 [v _SetUpColorSensor SetUpColorSensor `(v  1 e 1 0 ]
-"490
+"495
 [v _ColorSensor ColorSensor `(v  1 e 1 0 ]
 "5 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
+"43 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\fltol.c
+[v ___fltol __fltol `(l  1 e 4 0 ]
 "10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
 "4 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\Umul8_16.c
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\xxtofl.c
+[v ___xxtofl __xxtofl `(d  1 e 4 0 ]
 "6 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\pic\__eeprom.c
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
@@ -71,27 +77,27 @@
 [v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
 "263
 [v _drive drive `(v  1 e 1 0 ]
-"282
+"283
 [v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
-"297
+"298
 [v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
-"312
+"313
 [v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
-"327
+"328
 [v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
-"342
+"343
 [v _CreateBreak CreateBreak `(v  1 e 1 0 ]
-"355
+"356
 [v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
-"369
+"370
 [v _SetUpPumpArm SetUpPumpArm `(v  1 e 1 0 ]
-"382
+"383
 [v _SetUpPump SetUpPump `(v  1 e 1 0 ]
-"394
+"395
 [v _MovePumpArm MovePumpArm `(v  1 e 1 0 ]
-"407
+"408
 [v _ActivatePump ActivatePump `(v  1 e 1 0 ]
-"417
+"418
 [v _myFunction myFunction `II(v  1 e 1 0 ]
 [s S482 . 1 `uc 1 INTEDG 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
@@ -403,9 +409,9 @@
 [s S316 controller 22 `i 1 rightX 2 0 `i 1 rightY 2 2 `i 1 leftY 2 4 `i 1 leftX 2 6 `i 1 switchA 2 8 `i 1 switchB 2 10 `i 1 switchC 2 12 `i 1 switchD 2 14 `i 1 potentionmeterA 2 16 `i 1 potentionmeterB 2 18 `i 1 temp 2 20 ]
 "99
 [v _controls controls `S316  1 e 22 0 ]
-[s S328 command 14 `i 1 sendLimit 2 0 `i 1 sendIt 2 2 `i 1 sendId 2 4 `*.4uc 1 toSend 1 6 `i 1 receiveIt 2 7 `i 1 receiveLimit 2 9 `i 1 receiveId 2 11 `uc 1 done 1 13 ]
+[s S328 command 15 `i 1 sendLimit 2 0 `i 1 sendIt 2 2 `i 1 sendId 2 4 `*.39uc 1 toSend 2 6 `i 1 receiveIt 2 8 `i 1 receiveLimit 2 10 `i 1 receiveId 2 12 `uc 1 done 1 14 ]
 "100
-[v _currentCommand currentCommand `S328  1 e 14 0 ]
+[v _currentCommand currentCommand `S328  1 e 15 0 ]
 "119
 [v _color color `uc  1 e 1 0 ]
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
@@ -423,58 +429,124 @@
 "263
 [v _drive drive `(v  1 e 1 0 ]
 {
-"280
+"265
+[v drive@power power `ui  1 a 2 51 ]
+"281
 } 0
-"282
+"10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\xxtofl.c
+[v ___xxtofl __xxtofl `(d  1 e 4 0 ]
+{
+[v ___xxtofl@sign sign `uc  1 a 1 wreg ]
+"13
+[v ___xxtofl@arg arg `ul  1 a 4 10 ]
+"12
+[v ___xxtofl@exp exp `uc  1 a 1 9 ]
+"10
+[v ___xxtofl@sign sign `uc  1 a 1 wreg ]
+[v ___xxtofl@val val `l  1 p 4 0 ]
+"15
+[v ___xxtofl@sign sign `uc  1 a 1 8 ]
+"44
+} 0
+"43 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\fltol.c
+[v ___fltol __fltol `(l  1 e 4 0 ]
+{
+"45
+[v ___fltol@exp1 exp1 `uc  1 a 1 49 ]
+[v ___fltol@sign1 sign1 `uc  1 a 1 48 ]
+"43
+[v ___fltol@f1 f1 `d  1 p 4 40 ]
+"70
+} 0
+"8 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+{
+[s S1283 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+"13
+[s S1288 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
+[u S1291 . 4 `l 1 i 4 0 `d 1 f 4 0 `S1283 1 fAsBytes 4 0 `S1288 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S1291  1 a 4 34 ]
+"12
+[v ___flmul@grs grs `ul  1 a 4 28 ]
+[s S1360 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+"14
+[u S1363 . 2 `s 1 i 2 0 `us 1 n 2 0 `S1360 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S1363  1 a 2 38 ]
+"10
+[v ___flmul@bexp bexp `uc  1 a 1 33 ]
+"11
+[v ___flmul@aexp aexp `uc  1 a 1 32 ]
+"9
+[v ___flmul@sign sign `uc  1 a 1 27 ]
+"8
+[v ___flmul@b b `d  1 p 4 14 ]
+[v ___flmul@a a `d  1 p 4 18 ]
+"205
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+{
+[v __Umul8_16@multiplier multiplier `uc  1 a 1 wreg ]
+"6
+[v __Umul8_16@word_mpld word_mpld `us  1 a 2 6 ]
+"5
+[v __Umul8_16@product product `us  1 a 2 4 ]
+"4
+[v __Umul8_16@multiplier multiplier `uc  1 a 1 wreg ]
+[v __Umul8_16@multiplicand multiplicand `uc  1 p 1 0 ]
+[v __Umul8_16@multiplier multiplier `uc  1 a 1 8 ]
+"60
+} 0
+"283 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
 [v _CreateTurnRightCommmand CreateTurnRightCommmand `(v  1 e 1 0 ]
 {
 [v CreateTurnRightCommmand@pwm pwm `ui  1 p 2 0 ]
-"295
+"296
 } 0
-"297
+"298
 [v _CreateTurnLeftCommmand CreateTurnLeftCommmand `(v  1 e 1 0 ]
 {
 [v CreateTurnLeftCommmand@pwm pwm `ui  1 p 2 0 ]
-"310
+"311
 } 0
-"312
+"313
 [v _CreateMoveForwardCommmand CreateMoveForwardCommmand `(v  1 e 1 0 ]
 {
 [v CreateMoveForwardCommmand@pwm pwm `ui  1 p 2 0 ]
-"325
+"326
 } 0
-"327
+"328
 [v _CreateMoveBackwardCommmand CreateMoveBackwardCommmand `(v  1 e 1 0 ]
 {
 [v CreateMoveBackwardCommmand@pwm pwm `ui  1 p 2 0 ]
-"340
+"341
 } 0
-"355
+"356
 [v _CreateControlsCommand CreateControlsCommand `(v  1 e 1 0 ]
 {
-"365
+"366
 } 0
-"342
+"343
 [v _CreateBreak CreateBreak `(v  1 e 1 0 ]
 {
-"353
+"354
 } 0
-"369
+"370
 [v _SetUpPumpArm SetUpPumpArm `(v  1 e 1 0 ]
 {
-"380
+"381
 } 0
-"382
+"383
 [v _SetUpPump SetUpPump `(v  1 e 1 0 ]
 {
-"392
+"393
 } 0
 "461 C:\Users\chum_\MPLABXProjects\Motors.X/Color_Header.h
 [v _SetUpColorSensor SetUpColorSensor `(v  1 e 1 0 ]
 {
-"463
+"468
 [v SetUpColorSensor@result result `i  1 a 2 8 ]
-"488
+"493
 } 0
 "91
 [v _SetUpI2C SetUpI2C `(v  1 e 1 0 ]
@@ -523,32 +595,32 @@
 {
 "167
 } 0
-"394 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
+"395 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
 [v _MovePumpArm MovePumpArm `(v  1 e 1 0 ]
 {
 [v MovePumpArm@switchValue switchValue `i  1 p 2 0 ]
-"405
+"406
 } 0
-"490 C:\Users\chum_\MPLABXProjects\Motors.X/Color_Header.h
+"495 C:\Users\chum_\MPLABXProjects\Motors.X/Color_Header.h
 [v _ColorSensor ColorSensor `(v  1 e 1 0 ]
 {
 [v ColorSensor@newI2CMessage newI2CMessage `*.4uc  1 a 1 wreg ]
 [v ColorSensor@newI2CMessage newI2CMessage `*.4uc  1 a 1 wreg ]
 [v ColorSensor@I2CStage I2CStage `*.4i  1 p 1 12 ]
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v ColorSensor@colors colors `*.4S260  1 p 1 13 ]
+[v ColorSensor@colors colors `*.5S260  1 p 1 13 ]
 [v ColorSensor@color color `*.4uc  1 p 1 14 ]
 [v ColorSensor@newI2CMessage newI2CMessage `*.4uc  1 a 1 20 ]
-"516
+"521
 } 0
 "426
 [v _UpdateColors UpdateColors `(uc  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v UpdateColors@colors colors `*.4S260  1 a 1 wreg ]
-[v UpdateColors@colors colors `*.4S260  1 a 1 wreg ]
+[v UpdateColors@colors colors `*.5S260  1 a 1 wreg ]
+[v UpdateColors@colors colors `*.5S260  1 a 1 wreg ]
 [v UpdateColors@stageValue stageValue `i  1 p 2 7 ]
-[v UpdateColors@colors colors `*.4S260  1 a 1 11 ]
+[v UpdateColors@colors colors `*.5S260  1 a 1 11 ]
 "437
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\awmod.c
@@ -600,52 +672,52 @@
 [v _GetValueAndEndI2C GetValueAndEndI2C `(v  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v GetValueAndEndI2C@colors colors `*.4S260  1 a 1 wreg ]
+[v GetValueAndEndI2C@colors colors `*.5S260  1 a 1 wreg ]
 "409
 [v GetValueAndEndI2C@value value `uc  1 a 1 3 ]
 "407
-[v GetValueAndEndI2C@colors colors `*.4S260  1 a 1 wreg ]
+[v GetValueAndEndI2C@colors colors `*.5S260  1 a 1 wreg ]
 "409
 "407
-[v GetValueAndEndI2C@colors colors `*.4S260  1 a 1 4 ]
+[v GetValueAndEndI2C@colors colors `*.5S260  1 a 1 4 ]
 "424
 } 0
 "361
 [v _Reset Reset `(v  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v Reset@colors colors `*.4S260  1 a 1 wreg ]
-[v Reset@colors colors `*.4S260  1 a 1 wreg ]
-[v Reset@colors colors `*.4S260  1 a 1 0 ]
+[v Reset@colors colors `*.5S260  1 a 1 wreg ]
+[v Reset@colors colors `*.5S260  1 a 1 wreg ]
+[v Reset@colors colors `*.5S260  1 a 1 0 ]
 "365
 } 0
 "399
 [v _ReadColorReady ReadColorReady `(v  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v ReadColorReady@colors colors `*.4S260  1 a 1 wreg ]
-[v ReadColorReady@colors colors `*.4S260  1 a 1 wreg ]
+[v ReadColorReady@colors colors `*.5S260  1 a 1 wreg ]
+[v ReadColorReady@colors colors `*.5S260  1 a 1 wreg ]
 [v ReadColorReady@buffer buffer `uc  1 p 1 1 ]
-[v ReadColorReady@colors colors `*.4S260  1 a 1 2 ]
+[v ReadColorReady@colors colors `*.5S260  1 a 1 2 ]
 "405
 } 0
 "392
 [v _IncrementColorStage IncrementColorStage `(v  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v IncrementColorStage@colors colors `*.4S260  1 a 1 wreg ]
-[v IncrementColorStage@colors colors `*.4S260  1 a 1 wreg ]
-[v IncrementColorStage@colors colors `*.4S260  1 a 1 0 ]
+[v IncrementColorStage@colors colors `*.5S260  1 a 1 wreg ]
+[v IncrementColorStage@colors colors `*.5S260  1 a 1 wreg ]
+[v IncrementColorStage@colors colors `*.5S260  1 a 1 0 ]
 "395
 } 0
 "396
 [v _LoadTemp LoadTemp `(v  1 e 1 0 ]
 {
 [s S260 colorScheme 12 `i 1 clear 2 0 `i 1 green 2 2 `i 1 blue 2 4 `i 1 red 2 6 `uc 1 temp 1 8 `uc 1 ready 1 9 `uc 1 colorStage 1 10 `uc 1 allDone 1 11 ]
-[v LoadTemp@colors colors `*.4S260  1 a 1 wreg ]
-[v LoadTemp@colors colors `*.4S260  1 a 1 wreg ]
+[v LoadTemp@colors colors `*.5S260  1 a 1 wreg ]
+[v LoadTemp@colors colors `*.5S260  1 a 1 wreg ]
 [v LoadTemp@value value `uc  1 p 1 0 ]
-[v LoadTemp@colors colors `*.4S260  1 a 1 1 ]
+[v LoadTemp@colors colors `*.5S260  1 a 1 1 ]
 "398
 } 0
 "370
@@ -653,18 +725,18 @@
 {
 "372
 } 0
-"407 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
+"408 C:\Users\chum_\MPLABXProjects\Motors.X\motorMain.c
 [v _ActivatePump ActivatePump `(v  1 e 1 0 ]
 {
 [v ActivatePump@switchValue switchValue `i  1 p 2 0 ]
-"416
-} 0
 "417
+} 0
+"418
 [v _myFunction myFunction `II(v  1 e 1 0 ]
 {
-"424
+"425
 [v myFunction@input input `i  1 a 2 7 ]
-"450
+"451
 } 0
 "234
 [v _GetControllerInput GetControllerInput `(v  1 e 1 0 ]
