@@ -41,6 +41,13 @@
 
 #include <xc.h>
 
+#define _XTAL_FREQ 32000000
+
+#include "Color_Header.h"
+
+
+
+
 
 struct controller{
     int rightX;
@@ -72,12 +79,16 @@ struct command{
 
 const int CONTROL_INPUT =1;
 int CONTROL_OUTPUT = 1;
-
+const int DRIVE_COMMAND = 2;
+const int LASER_COMMAND = 3;
 int currentInput =0;
 int inputStage = 0;
 
 unsigned char GetUserDataCommand[6] = {0xFE, 0x19, 0x01, 0x5,0x00,0x00};
 unsigned char EnableLaserScopeCommand[7] = {0xFE, 0x19, 0x01, 0x08, 0x01, 0x00, 0x01};
+unsigned char FireLaserCommand[7] = {0xFE, 0x19, 0x01, 0x09, 0x01, 0x00, 0x02};
+unsigned char ProcessOreCommand[7] = {0xFE,0x19,0x03,0x0A,0x01,0x00,0x1};
+
 
 unsigned char TurnLeftCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x01, 0x32, 0x02, 0x32};
 unsigned char TurnRightCommand[10] = {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, 0x02, 0x32, 0x01, 0x32};
@@ -100,12 +111,23 @@ void CreateMoveBackwardCommmand(unsigned int pwm);
 void CreateBreak();
 void drive();
 
-
+void CreateLaserCommand();
+void  CreateProcessCommand();
 void SetUpPumpArm();
 void SetUpPump();
 void ActivatePump(int switchValue);
 void MovePumpArm(int switchValue);
 
+
+//COLOR SENSOR
+
+unsigned char color=0;
+ColorScheme colors;
+
+int I2CStage = 0;
+unsigned char newI2CMessage = 1;
+
+int counter = 0;
 void main(void) {
     
    TRISAbits.TRISA5 = 1;
@@ -150,47 +172,69 @@ void main(void) {
            
     RC1STAbits.CREN = 1;
     
+    
+    //comment out if using debugger
+    SetUpAnalog();
+    //Comment this out if the sensor is NOT plugged in
+    SetUpColorSensor();
+    
+    
+    
+    
     //enable interrupts
-    INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
     PIE3bits.RCIE = 1;
     PIE3bits.TXIE = 1;
+    PIE3bits.SSP1IE = 1;
+    INTCONbits.GIE = 1;
 
     
     while(1){
         if(controls.switchA <= SWITCH_MIN){
-            LATAbits.LATA0 = 1;
+            //LATAbits.LATA0 = 1;
             MovePumpArm(controls.switchC);
             ActivatePump(controls.switchD);
+            
+            if(controls.switchB <= SWITCH_MIN){
+                ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
+            }
         }
         else{
-            LATAbits.LATA0 = 0;
+            //LATAbits.LATA0 = 0;
             MovePumpArm(SWITCH_MID); //do not move pump arm
             ActivatePump(SWITCH_MAX);//turn off pump
         }
         if(controls.switchB <= SWITCH_MIN){
-            LATAbits.LATA1 = 1;
+            //LATAbits.LATA1 = 1;
         }
         else{
-            LATAbits.LATA1 = 0;
+            //LATAbits.LATA1 = 0;
         }  
         if(controls.switchC == SWITCH_MID){
-            LATAbits.LATA2 = 1;
+            //LATAbits.LATA2 = 1;
         }
         else{
-            LATAbits.LATA2 = 0;
+            //LATAbits.LATA2 = 0;
         }  
         if(controls.switchD <= SWITCH_MIN){
-            LATAbits.LATA3 = 1;
+            //LATAbits.LATA3 = 1;
         }
         else{
-            LATAbits.LATA3 = 0;
+            //LATAbits.LATA3 = 0;
         }
         
         
         if(currentCommand.done){
             if(currentCommand.sendId == CONTROL_INPUT){
                 drive();
+            }
+            else if(currentCommand.sendId  == DRIVE_COMMAND && controls.switchA >= SWITCH_MAX){
+                if(controls.switchB <= SWITCH_MIN){
+                    CreateLaserCommand();
+                }
+                else{
+                    CreateProcessCommand();
+                }
             }
             else{
                 CreateControlsCommand();
@@ -230,8 +274,9 @@ void GetControllerInput(int input){
 }
 
 void drive(){
-    unsigned int power = 75;
     
+    unsigned int power = (controls.potentionmeterB - 0x3E8) * (100.0/1000.00);
+    //unsigned int power = 100;
     if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
         CreateTurnRightCommmand(power);
     }else if((controls.rightX <= 0x514) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
@@ -249,7 +294,7 @@ void drive(){
 }
 
 void CreateTurnRightCommmand(unsigned int pwm){
-    currentCommand.sendId = 3;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -264,7 +309,7 @@ void CreateTurnRightCommmand(unsigned int pwm){
 }
 
 void CreateTurnLeftCommmand(unsigned int pwm){
-    currentCommand.sendId = 4;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -279,7 +324,7 @@ void CreateTurnLeftCommmand(unsigned int pwm){
 }
 
 void CreateMoveForwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 5;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -294,7 +339,7 @@ void CreateMoveForwardCommmand(unsigned int pwm){
 }
 
 void CreateMoveBackwardCommmand(unsigned int pwm){
-    currentCommand.sendId = 6;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -309,7 +354,7 @@ void CreateMoveBackwardCommmand(unsigned int pwm){
 }
 
 void CreateBreak(){
-    currentCommand.sendId = 7;
+    currentCommand.sendId = DRIVE_COMMAND;
     currentCommand.sendIt = 0;
     currentCommand.sendLimit = 10;
     currentCommand.receiveId = 0;
@@ -333,7 +378,38 @@ void CreateControlsCommand(){
     PIE3bits.TXIE = 1;
 }
 
+void CreateLaserCommand(){
+    currentCommand.receiveId = LASER_COMMAND;
+    currentCommand.receiveLimit = 0;
+    currentCommand.receiveIt = 0;
+    currentCommand.sendId = LASER_COMMAND;
+    currentCommand.toSend = (unsigned char*) FireLaserCommand;
+    currentCommand.sendIt = 0;
+    currentCommand.sendLimit = 7;
+    currentCommand.done = 0;
+    PIE3bits.TXIE = 1;
+}
 
+void  CreateProcessCommand(){
+    if(controls.switchC == SWITCH_MAX){
+        ProcessOreCommand[6] =3; //blue
+    }
+    else if(controls.switchC == SWITCH_MID){
+        ProcessOreCommand[6] = 1;//red
+    }
+    else{
+        ProcessOreCommand[6] = 2;
+    }
+    currentCommand.receiveId = LASER_COMMAND;
+    currentCommand.receiveLimit = 0;
+    currentCommand.receiveIt = 0;
+    currentCommand.sendId = LASER_COMMAND;
+    currentCommand.toSend = (unsigned char*) ProcessOreCommand;
+    currentCommand.sendIt = 0;
+    currentCommand.sendLimit = 7;
+    currentCommand.done = 0;
+    PIE3bits.TXIE = 1;
+}
 
 void SetUpPumpArm(){
     
@@ -384,6 +460,11 @@ void ActivatePump(int switchValue){
     }
 }
 void __interrupt() myFunction(){
+    if(PIR3bits.SSP1IF == 1){
+        //I2CStage++;
+        newI2CMessage = 1;
+        PIR3bits.SSP1IF = 0;
+    }
     if(PIR3bits.RCIF == 1){
         int input = RCREG;
         if(currentCommand.receiveId == CONTROL_INPUT){
@@ -395,8 +476,9 @@ void __interrupt() myFunction(){
         }
         inputStage++;
         PIR3bits.RCIF =0;
+
     }
-    else if(PIR3bits.TXIF == 1){
+    if(PIR3bits.TXIF == 1){
         if(currentCommand.sendIt >= currentCommand.sendLimit){
             PIE3bits.TXIE = 0;
             if(currentCommand.receiveLimit <= 0){
@@ -409,5 +491,6 @@ void __interrupt() myFunction(){
         }
         PIR3bits.TXIF = 0;
     }
+    
 }
 
