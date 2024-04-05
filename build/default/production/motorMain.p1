@@ -3808,297 +3808,297 @@ Version 4.0 HI-TECH Software Intermediate Code
 "189
 [; ;motorMain.c: 189:     INTCONbits.GIE = 1;
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-"192
-[; ;motorMain.c: 192:     while(1){
+"194
+[; ;motorMain.c: 194:     while(1){
 [e :U 1699 ]
 {
-"193
-[; ;motorMain.c: 193:         if(controls.switchA <= SWITCH_MIN){
+"195
+[; ;motorMain.c: 195:         if(controls.switchA <= SWITCH_MIN){
 [e $ ! <= -> . _controls 4 `ui _SWITCH_MIN 1701  ]
 {
-"195
-[; ;motorMain.c: 195:             MovePumpArm(controls.switchC);
+"197
+[; ;motorMain.c: 197:             MovePumpArm(controls.switchC);
 [e ( _MovePumpArm (1 . _controls 6 ]
-"196
-[; ;motorMain.c: 196:             ActivatePump(controls.switchD);
-[e ( _ActivatePump (1 . _controls 7 ]
 "198
-[; ;motorMain.c: 198:             if(controls.switchB <= SWITCH_MIN){
+[; ;motorMain.c: 198:             ActivatePump(controls.switchD);
+[e ( _ActivatePump (1 . _controls 7 ]
+"200
+[; ;motorMain.c: 200:             if(controls.switchB <= SWITCH_MIN){
 [e $ ! <= -> . _controls 5 `ui _SWITCH_MIN 1702  ]
 {
-"199
-[; ;motorMain.c: 199:                 ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
+"201
+[; ;motorMain.c: 201:                 ColorSensor(&newI2CMessage,&I2CStage,&colors,&color);
 [e ( _ColorSensor (4 , , , &U _newI2CMessage &U _I2CStage &U _colors &U _color ]
-"200
-[; ;motorMain.c: 200:             }
+"202
+[; ;motorMain.c: 202:             }
 }
 [e :U 1702 ]
-"201
-[; ;motorMain.c: 201:         }
+"203
+[; ;motorMain.c: 203:         }
 }
 [e $U 1703  ]
-"202
-[; ;motorMain.c: 202:         else{
+"204
+[; ;motorMain.c: 204:         else{
 [e :U 1701 ]
 {
-"204
-[; ;motorMain.c: 204:             MovePumpArm(SWITCH_MID);
-[e ( _MovePumpArm (1 -> _SWITCH_MID `i ]
-"205
-[; ;motorMain.c: 205:             ActivatePump(SWITCH_MAX);
-[e ( _ActivatePump (1 -> _SWITCH_MAX `i ]
 "206
-[; ;motorMain.c: 206:         }
+[; ;motorMain.c: 206:             MovePumpArm(SWITCH_MID);
+[e ( _MovePumpArm (1 -> _SWITCH_MID `i ]
+"207
+[; ;motorMain.c: 207:             ActivatePump(SWITCH_MAX);
+[e ( _ActivatePump (1 -> _SWITCH_MAX `i ]
+"208
+[; ;motorMain.c: 208:         }
 }
 [e :U 1703 ]
-"207
-[; ;motorMain.c: 207:         if(controls.switchB <= SWITCH_MIN){
+"209
+[; ;motorMain.c: 209:         if(controls.switchB <= SWITCH_MIN){
 [e $ ! <= -> . _controls 5 `ui _SWITCH_MIN 1704  ]
 {
-"209
-[; ;motorMain.c: 209:         }
+"211
+[; ;motorMain.c: 211:         }
 }
 [e $U 1705  ]
-"210
-[; ;motorMain.c: 210:         else{
+"212
+[; ;motorMain.c: 212:         else{
 [e :U 1704 ]
 {
-"212
-[; ;motorMain.c: 212:         }
+"214
+[; ;motorMain.c: 214:         }
 }
 [e :U 1705 ]
-"213
-[; ;motorMain.c: 213:         if(controls.switchC == SWITCH_MID){
+"215
+[; ;motorMain.c: 215:         if(controls.switchC == SWITCH_MID){
 [e $ ! == -> . _controls 6 `ui _SWITCH_MID 1706  ]
 {
-"215
-[; ;motorMain.c: 215:         }
+"217
+[; ;motorMain.c: 217:         }
 }
 [e $U 1707  ]
-"216
-[; ;motorMain.c: 216:         else{
+"218
+[; ;motorMain.c: 218:         else{
 [e :U 1706 ]
 {
-"218
-[; ;motorMain.c: 218:         }
+"220
+[; ;motorMain.c: 220:         }
 }
 [e :U 1707 ]
-"219
-[; ;motorMain.c: 219:         if(controls.switchD <= SWITCH_MIN){
+"221
+[; ;motorMain.c: 221:         if(controls.switchD <= SWITCH_MIN){
 [e $ ! <= -> . _controls 7 `ui _SWITCH_MIN 1708  ]
 {
-"221
-[; ;motorMain.c: 221:         }
+"223
+[; ;motorMain.c: 223:         }
 }
 [e $U 1709  ]
-"222
-[; ;motorMain.c: 222:         else{
+"224
+[; ;motorMain.c: 224:         else{
 [e :U 1708 ]
 {
-"224
-[; ;motorMain.c: 224:         }
+"226
+[; ;motorMain.c: 226:         }
 }
 [e :U 1709 ]
-"227
-[; ;motorMain.c: 227:         if(currentCommand.done){
+"229
+[; ;motorMain.c: 229:         if(currentCommand.done){
 [e $ ! != -> . _currentCommand 7 `i -> 0 `i 1710  ]
 {
-"228
-[; ;motorMain.c: 228:             if(currentCommand.sendId == CONTROL_INPUT){
+"230
+[; ;motorMain.c: 230:             if(currentCommand.sendId == CONTROL_INPUT){
 [e $ ! == . _currentCommand 2 _CONTROL_INPUT 1711  ]
 {
-"229
-[; ;motorMain.c: 229:                 drive();
+"231
+[; ;motorMain.c: 231:                 drive();
 [e ( _drive ..  ]
-"230
-[; ;motorMain.c: 230:             }
+"232
+[; ;motorMain.c: 232:             }
 }
 [e $U 1712  ]
-"231
-[; ;motorMain.c: 231:             else if(currentCommand.sendId == DRIVE_COMMAND && controls.switchA >= SWITCH_MAX){
+"233
+[; ;motorMain.c: 233:             else if(currentCommand.sendId == DRIVE_COMMAND && controls.switchA >= SWITCH_MAX){
 [e :U 1711 ]
 [e $ ! && == . _currentCommand 2 _DRIVE_COMMAND >= -> . _controls 4 `ui _SWITCH_MAX 1713  ]
 {
-"232
-[; ;motorMain.c: 232:                 if(controls.switchB <= SWITCH_MIN){
+"234
+[; ;motorMain.c: 234:                 if(controls.switchB <= SWITCH_MIN){
 [e $ ! <= -> . _controls 5 `ui _SWITCH_MIN 1714  ]
 {
-"233
-[; ;motorMain.c: 233:                     CreateLaserCommand();
+"235
+[; ;motorMain.c: 235:                     CreateLaserCommand();
 [e ( _CreateLaserCommand ..  ]
-"234
-[; ;motorMain.c: 234:                 }
+"236
+[; ;motorMain.c: 236:                 }
 }
 [e $U 1715  ]
-"235
-[; ;motorMain.c: 235:                 else{
+"237
+[; ;motorMain.c: 237:                 else{
 [e :U 1714 ]
 {
-"236
-[; ;motorMain.c: 236:                     CreateProcessCommand();
+"238
+[; ;motorMain.c: 238:                     CreateProcessCommand();
 [e ( _CreateProcessCommand ..  ]
-"237
-[; ;motorMain.c: 237:                 }
+"239
+[; ;motorMain.c: 239:                 }
 }
 [e :U 1715 ]
-"238
-[; ;motorMain.c: 238:             }
+"240
+[; ;motorMain.c: 240:             }
 }
 [e $U 1716  ]
-"239
-[; ;motorMain.c: 239:             else{
+"241
+[; ;motorMain.c: 241:             else{
 [e :U 1713 ]
 {
-"240
-[; ;motorMain.c: 240:                 CreateControlsCommand();
+"242
+[; ;motorMain.c: 242:                 CreateControlsCommand();
 [e ( _CreateControlsCommand ..  ]
-"241
-[; ;motorMain.c: 241:             }
+"243
+[; ;motorMain.c: 243:             }
 }
 [e :U 1716 ]
 [e :U 1712 ]
-"242
-[; ;motorMain.c: 242:         }
+"244
+[; ;motorMain.c: 244:         }
 }
 [e :U 1710 ]
-"246
-[; ;motorMain.c: 246:     }
+"245
+[; ;motorMain.c: 245:     }
 }
 [e :U 1698 ]
 [e $U 1699  ]
 [e :U 1700 ]
-"247
-[; ;motorMain.c: 247:     return;
+"246
+[; ;motorMain.c: 246:     return;
 [e $UE 1697  ]
-"248
-[; ;motorMain.c: 248: }
+"247
+[; ;motorMain.c: 247: }
 [e :UE 1697 ]
 }
-"250
-[; ;motorMain.c: 250: void GetControllerInput(int input){
+"249
+[; ;motorMain.c: 249: void GetControllerInput(int input){
 [v _GetControllerInput `(v ~T0 @X0 1 ef1`i ]
 {
 [e :U _GetControllerInput ]
 [v _input `i ~T0 @X0 1 r1 ]
 [f ]
-"251
-[; ;motorMain.c: 251:     if(currentCommand.receiveIt <0 ){
+"250
+[; ;motorMain.c: 250:     if(currentCommand.receiveIt <0 ){
 [e $ ! < . _currentCommand 4 -> 0 `i 1718  ]
 {
-"252
-[; ;motorMain.c: 252:         return;
+"251
+[; ;motorMain.c: 251:         return;
 [e $UE 1717  ]
-"253
-[; ;motorMain.c: 253:     }
+"252
+[; ;motorMain.c: 252:     }
 }
 [e :U 1718 ]
-"254
-[; ;motorMain.c: 254:     switch(currentCommand.receiveIt){
+"253
+[; ;motorMain.c: 253:     switch(currentCommand.receiveIt){
 [e $U 1720  ]
 {
-"255
-[; ;motorMain.c: 255:         case 6: controls.temp = input; break;
+"254
+[; ;motorMain.c: 254:         case 6: controls.temp = input; break;
 [e :U 1721 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"256
-[; ;motorMain.c: 256:         case 7: controls.rightX = controls.temp + (input << 8); break;
+"255
+[; ;motorMain.c: 255:         case 7: controls.rightX = controls.temp + (input << 8); break;
 [e :U 1722 ]
 [e = . _controls 0 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"257
-[; ;motorMain.c: 257:         case 8: controls.temp = input; break;
+"256
+[; ;motorMain.c: 256:         case 8: controls.temp = input; break;
 [e :U 1723 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"258
-[; ;motorMain.c: 258:         case 9: controls.rightY = controls.temp + (input << 8); break;
+"257
+[; ;motorMain.c: 257:         case 9: controls.rightY = controls.temp + (input << 8); break;
 [e :U 1724 ]
 [e = . _controls 1 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"259
-[; ;motorMain.c: 259:         case 10: controls.temp = input; break;
+"258
+[; ;motorMain.c: 258:         case 10: controls.temp = input; break;
 [e :U 1725 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"260
-[; ;motorMain.c: 260:         case 11: controls.leftY = controls.temp + (input << 8); break;
+"259
+[; ;motorMain.c: 259:         case 11: controls.leftY = controls.temp + (input << 8); break;
 [e :U 1726 ]
 [e = . _controls 2 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"261
-[; ;motorMain.c: 261:         case 12: controls.temp = input; break;
+"260
+[; ;motorMain.c: 260:         case 12: controls.temp = input; break;
 [e :U 1727 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"262
-[; ;motorMain.c: 262:         case 13: controls.leftX = (input << 8) + controls.temp; break;
+"261
+[; ;motorMain.c: 261:         case 13: controls.leftX = (input << 8) + controls.temp; break;
 [e :U 1728 ]
 [e = . _controls 3 + << _input -> 8 `i . _controls 10 ]
 [e $U 1719  ]
-"263
-[; ;motorMain.c: 263:         case 14: controls.temp = input; break;
+"262
+[; ;motorMain.c: 262:         case 14: controls.temp = input; break;
 [e :U 1729 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"264
-[; ;motorMain.c: 264:         case 15: controls.switchA = controls.temp + (input << 8); break;
+"263
+[; ;motorMain.c: 263:         case 15: controls.switchA = controls.temp + (input << 8); break;
 [e :U 1730 ]
 [e = . _controls 4 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"265
-[; ;motorMain.c: 265:         case 16: controls.temp = input; break;
+"264
+[; ;motorMain.c: 264:         case 16: controls.temp = input; break;
 [e :U 1731 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"266
-[; ;motorMain.c: 266:         case 17: controls.switchB = controls.temp + (input << 8); break;
+"265
+[; ;motorMain.c: 265:         case 17: controls.switchB = controls.temp + (input << 8); break;
 [e :U 1732 ]
 [e = . _controls 5 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"267
-[; ;motorMain.c: 267:         case 18: controls.temp = input; break;
+"266
+[; ;motorMain.c: 266:         case 18: controls.temp = input; break;
 [e :U 1733 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"268
-[; ;motorMain.c: 268:         case 19: controls.switchC = controls.temp + (input << 8); break;
+"267
+[; ;motorMain.c: 267:         case 19: controls.switchC = controls.temp + (input << 8); break;
 [e :U 1734 ]
 [e = . _controls 6 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"269
-[; ;motorMain.c: 269:         case 20: controls.temp = input; break;
+"268
+[; ;motorMain.c: 268:         case 20: controls.temp = input; break;
 [e :U 1735 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"270
-[; ;motorMain.c: 270:         case 21: controls.switchD = controls.temp + (input << 8); break;
+"269
+[; ;motorMain.c: 269:         case 21: controls.switchD = controls.temp + (input << 8); break;
 [e :U 1736 ]
 [e = . _controls 7 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"271
-[; ;motorMain.c: 271:         case 22: controls.temp = input; break;
+"270
+[; ;motorMain.c: 270:         case 22: controls.temp = input; break;
 [e :U 1737 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"272
-[; ;motorMain.c: 272:         case 23: controls.potentionmeterA = controls.temp + (input << 8); break;
+"271
+[; ;motorMain.c: 271:         case 23: controls.potentionmeterA = controls.temp + (input << 8); break;
 [e :U 1738 ]
 [e = . _controls 8 + . _controls 10 << _input -> 8 `i ]
 [e $U 1719  ]
-"273
-[; ;motorMain.c: 273:         case 24: controls.temp = input; break;
+"272
+[; ;motorMain.c: 272:         case 24: controls.temp = input; break;
 [e :U 1739 ]
 [e = . _controls 10 _input ]
 [e $U 1719  ]
-"274
-[; ;motorMain.c: 274:         case 25: controls.potentionmeterB = controls.temp + (input << 8); currentInput = 0;break;
+"273
+[; ;motorMain.c: 273:         case 25: controls.potentionmeterB = controls.temp + (input << 8); currentInput = 0;break;
 [e :U 1740 ]
 [e = . _controls 9 + . _controls 10 << _input -> 8 `i ]
 [e = _currentInput -> 0 `i ]
 [e $U 1719  ]
-"276
-[; ;motorMain.c: 276:     }
+"275
+[; ;motorMain.c: 275:     }
 }
 [e $U 1719  ]
 [e :U 1720 ]
@@ -4124,703 +4124,709 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 25 `i 1740
  1719 ]
 [e :U 1719 ]
-"277
-[; ;motorMain.c: 277: }
+"276
+[; ;motorMain.c: 276: }
 [e :UE 1717 ]
 }
-"279
-[; ;motorMain.c: 279: void drive(){
+"278
+[; ;motorMain.c: 278: void drive(){
 [v _drive `(v ~T0 @X0 1 ef ]
 {
 [e :U _drive ]
 [f ]
-"281
-[; ;motorMain.c: 281:     unsigned int power = (controls.potentionmeterB - 0x3E8) * (100.0/1000.00);
+"280
+[; ;motorMain.c: 280:     unsigned int power = (controls.potentionmeterB - 0x3E8) * (100.0/1000.00);
 [v _power `ui ~T0 @X0 1 a ]
 [e = _power -> * -> - . _controls 9 -> 1000 `i `d / .100.0 .1000.00 `ui ]
-"283
-[; ;motorMain.c: 283:     if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
+"282
+[; ;motorMain.c: 282:     if((controls.rightX >= 0x6A4) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
 [e $ ! && >= . _controls 0 -> 1700 `i && >= . _controls 1 -> 1350 `i <= . _controls 1 -> 1650 `i 1742  ]
 {
-"284
-[; ;motorMain.c: 284:         CreateTurnRightCommmand(power);
+"283
+[; ;motorMain.c: 283:         CreateTurnRightCommmand(power);
 [e ( _CreateTurnRightCommmand (1 _power ]
-"285
-[; ;motorMain.c: 285:     }else if((controls.rightX <= 0x514) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
+"284
+[; ;motorMain.c: 284:     }else if((controls.rightX <= 0x514) && (controls.rightY >= 0x546 && controls.rightY <= 0x672)){
 }
 [e $U 1743  ]
 [e :U 1742 ]
 [e $ ! && <= . _controls 0 -> 1300 `i && >= . _controls 1 -> 1350 `i <= . _controls 1 -> 1650 `i 1744  ]
 {
-"286
-[; ;motorMain.c: 286:         CreateTurnLeftCommmand(power);
+"285
+[; ;motorMain.c: 285:         CreateTurnLeftCommmand(power);
 [e ( _CreateTurnLeftCommmand (1 _power ]
-"287
-[; ;motorMain.c: 287:     }else if((controls.rightY >= 0x6A4) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
+"286
+[; ;motorMain.c: 286:     }else if((controls.rightY >= 0x6A4) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
 }
 [e $U 1745  ]
 [e :U 1744 ]
 [e $ ! && >= . _controls 1 -> 1700 `i && >= . _controls 0 -> 1350 `i <= . _controls 0 -> 1650 `i 1746  ]
 {
-"288
-[; ;motorMain.c: 288:         CreateMoveForwardCommmand(power);
+"287
+[; ;motorMain.c: 287:         CreateMoveForwardCommmand(power);
 [e ( _CreateMoveForwardCommmand (1 _power ]
-"289
-[; ;motorMain.c: 289:     }else if((controls.rightY <= 0x514) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
+"288
+[; ;motorMain.c: 288:     }else if((controls.rightY <= 0x514) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
 }
 [e $U 1747  ]
 [e :U 1746 ]
 [e $ ! && <= . _controls 1 -> 1300 `i && >= . _controls 0 -> 1350 `i <= . _controls 0 -> 1650 `i 1748  ]
 {
-"290
-[; ;motorMain.c: 290:         CreateMoveBackwardCommmand(power);
+"289
+[; ;motorMain.c: 289:         CreateMoveBackwardCommmand(power);
 [e ( _CreateMoveBackwardCommmand (1 _power ]
-"291
-[; ;motorMain.c: 291:     }else if((controls.rightY >= 0x546 && controls.rightY <= 0x672) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
+"290
+[; ;motorMain.c: 290:     }else if((controls.rightY >= 0x546 && controls.rightY <= 0x672) && (controls.rightX >= 0x546 && controls.rightX <= 0x672)){
 }
 [e $U 1749  ]
 [e :U 1748 ]
 [e $ ! && && >= . _controls 1 -> 1350 `i <= . _controls 1 -> 1650 `i && >= . _controls 0 -> 1350 `i <= . _controls 0 -> 1650 `i 1750  ]
 {
-"292
-[; ;motorMain.c: 292:         CreateBreak();
+"291
+[; ;motorMain.c: 291:         CreateBreak();
 [e ( _CreateBreak ..  ]
-"293
-[; ;motorMain.c: 293:     }
+"292
+[; ;motorMain.c: 292:     }
 }
 [e $U 1751  ]
-"294
-[; ;motorMain.c: 294:     else{
+"293
+[; ;motorMain.c: 293:     else{
 [e :U 1750 ]
 {
-"295
-[; ;motorMain.c: 295:         CreateControlsCommand();
+"294
+[; ;motorMain.c: 294:         CreateControlsCommand();
 [e ( _CreateControlsCommand ..  ]
-"296
-[; ;motorMain.c: 296:     }
+"295
+[; ;motorMain.c: 295:     }
 }
 [e :U 1751 ]
 [e :U 1749 ]
 [e :U 1747 ]
 [e :U 1745 ]
 [e :U 1743 ]
-"297
-[; ;motorMain.c: 297: }
+"296
+[; ;motorMain.c: 296: }
 [e :UE 1741 ]
 }
-"299
-[; ;motorMain.c: 299: void CreateTurnRightCommmand(unsigned int pwm){
+"298
+[; ;motorMain.c: 298: void CreateTurnRightCommmand(unsigned int pwm){
 [v _CreateTurnRightCommmand `(v ~T0 @X0 1 ef1`ui ]
 {
 [e :U _CreateTurnRightCommmand ]
 [v _pwm `ui ~T0 @X0 1 r1 ]
 [f ]
-"300
-[; ;motorMain.c: 300:     currentCommand.sendId = DRIVE_COMMAND;
+"299
+[; ;motorMain.c: 299:     currentCommand.sendId = DRIVE_COMMAND;
 [e = . _currentCommand 2 _DRIVE_COMMAND ]
-"301
-[; ;motorMain.c: 301:     currentCommand.sendIt = 0;
+"300
+[; ;motorMain.c: 300:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"302
-[; ;motorMain.c: 302:     currentCommand.sendLimit = 10;
+"301
+[; ;motorMain.c: 301:     currentCommand.sendLimit = 10;
 [e = . _currentCommand 0 -> 10 `i ]
-"303
-[; ;motorMain.c: 303:     currentCommand.receiveId = 0;
+"302
+[; ;motorMain.c: 302:     currentCommand.receiveId = 0;
 [e = . _currentCommand 6 -> 0 `i ]
-"304
-[; ;motorMain.c: 304:     currentCommand.receiveLimit = 0;
+"303
+[; ;motorMain.c: 303:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"305
-[; ;motorMain.c: 305:     currentCommand.receiveIt = 0;
+"304
+[; ;motorMain.c: 304:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"306
-[; ;motorMain.c: 306:     currentCommand.done = 0;
+"305
+[; ;motorMain.c: 305:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
+"307
+[; ;motorMain.c: 307:     TurnRightCommand[7] = 100;
+[e = *U + &U _TurnRightCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _TurnRightCommand `ui `ux -> -> 100 `i `uc ]
 "308
-[; ;motorMain.c: 308:     TurnRightCommand[7] = pwm;
-[e = *U + &U _TurnRightCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _TurnRightCommand `ui `ux -> _pwm `uc ]
+[; ;motorMain.c: 308:     TurnRightCommand[9] = 100;
+[e = *U + &U _TurnRightCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _TurnRightCommand `ui `ux -> -> 100 `i `uc ]
 "309
-[; ;motorMain.c: 309:     TurnRightCommand[9] = pwm;
-[e = *U + &U _TurnRightCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _TurnRightCommand `ui `ux -> _pwm `uc ]
-"310
-[; ;motorMain.c: 310:     currentCommand.toSend = TurnRightCommand;
+[; ;motorMain.c: 309:     currentCommand.toSend = TurnRightCommand;
 [e = . _currentCommand 3 &U _TurnRightCommand ]
-"311
-[; ;motorMain.c: 311:     PIE3bits.TXIE = 1;
+"310
+[; ;motorMain.c: 310:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"312
-[; ;motorMain.c: 312: }
+"311
+[; ;motorMain.c: 311: }
 [e :UE 1752 ]
 }
-"314
-[; ;motorMain.c: 314: void CreateTurnLeftCommmand(unsigned int pwm){
+"313
+[; ;motorMain.c: 313: void CreateTurnLeftCommmand(unsigned int pwm){
 [v _CreateTurnLeftCommmand `(v ~T0 @X0 1 ef1`ui ]
 {
 [e :U _CreateTurnLeftCommmand ]
 [v _pwm `ui ~T0 @X0 1 r1 ]
 [f ]
-"315
-[; ;motorMain.c: 315:     currentCommand.sendId = DRIVE_COMMAND;
+"314
+[; ;motorMain.c: 314:     currentCommand.sendId = DRIVE_COMMAND;
 [e = . _currentCommand 2 _DRIVE_COMMAND ]
-"316
-[; ;motorMain.c: 316:     currentCommand.sendIt = 0;
+"315
+[; ;motorMain.c: 315:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"317
-[; ;motorMain.c: 317:     currentCommand.sendLimit = 10;
+"316
+[; ;motorMain.c: 316:     currentCommand.sendLimit = 10;
 [e = . _currentCommand 0 -> 10 `i ]
-"318
-[; ;motorMain.c: 318:     currentCommand.receiveId = 0;
+"317
+[; ;motorMain.c: 317:     currentCommand.receiveId = 0;
 [e = . _currentCommand 6 -> 0 `i ]
-"319
-[; ;motorMain.c: 319:     currentCommand.receiveLimit = 0;
+"318
+[; ;motorMain.c: 318:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"320
-[; ;motorMain.c: 320:     currentCommand.receiveIt = 0;
+"319
+[; ;motorMain.c: 319:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"321
-[; ;motorMain.c: 321:     currentCommand.done = 0;
+"320
+[; ;motorMain.c: 320:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
+"322
+[; ;motorMain.c: 322:     TurnLeftCommand[7] = 100;
+[e = *U + &U _TurnLeftCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _TurnLeftCommand `ui `ux -> -> 100 `i `uc ]
 "323
-[; ;motorMain.c: 323:     TurnLeftCommand[7] = pwm;
-[e = *U + &U _TurnLeftCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _TurnLeftCommand `ui `ux -> _pwm `uc ]
+[; ;motorMain.c: 323:     TurnLeftCommand[9] = 100;
+[e = *U + &U _TurnLeftCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _TurnLeftCommand `ui `ux -> -> 100 `i `uc ]
 "324
-[; ;motorMain.c: 324:     TurnLeftCommand[9] = pwm;
-[e = *U + &U _TurnLeftCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _TurnLeftCommand `ui `ux -> _pwm `uc ]
-"325
-[; ;motorMain.c: 325:     currentCommand.toSend = TurnLeftCommand;
+[; ;motorMain.c: 324:     currentCommand.toSend = TurnLeftCommand;
 [e = . _currentCommand 3 &U _TurnLeftCommand ]
-"326
-[; ;motorMain.c: 326:     PIE3bits.TXIE = 1;
+"325
+[; ;motorMain.c: 325:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"327
-[; ;motorMain.c: 327: }
+"326
+[; ;motorMain.c: 326: }
 [e :UE 1753 ]
 }
-"329
-[; ;motorMain.c: 329: void CreateMoveForwardCommmand(unsigned int pwm){
+"328
+[; ;motorMain.c: 328: void CreateMoveForwardCommmand(unsigned int pwm){
 [v _CreateMoveForwardCommmand `(v ~T0 @X0 1 ef1`ui ]
 {
 [e :U _CreateMoveForwardCommmand ]
 [v _pwm `ui ~T0 @X0 1 r1 ]
 [f ]
-"330
-[; ;motorMain.c: 330:     currentCommand.sendId = DRIVE_COMMAND;
+"329
+[; ;motorMain.c: 329:     currentCommand.sendId = DRIVE_COMMAND;
 [e = . _currentCommand 2 _DRIVE_COMMAND ]
-"331
-[; ;motorMain.c: 331:     currentCommand.sendIt = 0;
+"330
+[; ;motorMain.c: 330:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"332
-[; ;motorMain.c: 332:     currentCommand.sendLimit = 10;
+"331
+[; ;motorMain.c: 331:     currentCommand.sendLimit = 10;
 [e = . _currentCommand 0 -> 10 `i ]
-"333
-[; ;motorMain.c: 333:     currentCommand.receiveId = 0;
+"332
+[; ;motorMain.c: 332:     currentCommand.receiveId = 0;
 [e = . _currentCommand 6 -> 0 `i ]
-"334
-[; ;motorMain.c: 334:     currentCommand.receiveLimit = 0;
+"333
+[; ;motorMain.c: 333:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"335
-[; ;motorMain.c: 335:     currentCommand.receiveIt = 0;
+"334
+[; ;motorMain.c: 334:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"336
-[; ;motorMain.c: 336:     currentCommand.done = 0;
+"335
+[; ;motorMain.c: 335:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"338
-[; ;motorMain.c: 338:     MoveForwardCommand[7] = pwm;
+"337
+[; ;motorMain.c: 337:     MoveForwardCommand[7] = pwm;
 [e = *U + &U _MoveForwardCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _MoveForwardCommand `ui `ux -> _pwm `uc ]
-"339
-[; ;motorMain.c: 339:     MoveForwardCommand[9] = pwm;
+"338
+[; ;motorMain.c: 338:     MoveForwardCommand[9] = pwm;
 [e = *U + &U _MoveForwardCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _MoveForwardCommand `ui `ux -> _pwm `uc ]
-"340
-[; ;motorMain.c: 340:     currentCommand.toSend = MoveForwardCommand;
+"339
+[; ;motorMain.c: 339:     currentCommand.toSend = MoveForwardCommand;
 [e = . _currentCommand 3 &U _MoveForwardCommand ]
-"341
-[; ;motorMain.c: 341:     PIE3bits.TXIE = 1;
+"340
+[; ;motorMain.c: 340:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"342
-[; ;motorMain.c: 342: }
+"341
+[; ;motorMain.c: 341: }
 [e :UE 1754 ]
 }
-"344
-[; ;motorMain.c: 344: void CreateMoveBackwardCommmand(unsigned int pwm){
+"343
+[; ;motorMain.c: 343: void CreateMoveBackwardCommmand(unsigned int pwm){
 [v _CreateMoveBackwardCommmand `(v ~T0 @X0 1 ef1`ui ]
 {
 [e :U _CreateMoveBackwardCommmand ]
 [v _pwm `ui ~T0 @X0 1 r1 ]
 [f ]
-"345
-[; ;motorMain.c: 345:     currentCommand.sendId = DRIVE_COMMAND;
+"344
+[; ;motorMain.c: 344:     currentCommand.sendId = DRIVE_COMMAND;
 [e = . _currentCommand 2 _DRIVE_COMMAND ]
-"346
-[; ;motorMain.c: 346:     currentCommand.sendIt = 0;
+"345
+[; ;motorMain.c: 345:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"347
-[; ;motorMain.c: 347:     currentCommand.sendLimit = 10;
+"346
+[; ;motorMain.c: 346:     currentCommand.sendLimit = 10;
 [e = . _currentCommand 0 -> 10 `i ]
-"348
-[; ;motorMain.c: 348:     currentCommand.receiveId = 0;
+"347
+[; ;motorMain.c: 347:     currentCommand.receiveId = 0;
 [e = . _currentCommand 6 -> 0 `i ]
-"349
-[; ;motorMain.c: 349:     currentCommand.receiveLimit = 0;
+"348
+[; ;motorMain.c: 348:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"350
-[; ;motorMain.c: 350:     currentCommand.receiveIt = 0;
+"349
+[; ;motorMain.c: 349:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"351
-[; ;motorMain.c: 351:     currentCommand.done = 0;
+"350
+[; ;motorMain.c: 350:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"353
-[; ;motorMain.c: 353:     MoveBackwardCommand[7] = pwm;
+"352
+[; ;motorMain.c: 352:     MoveBackwardCommand[7] = pwm;
 [e = *U + &U _MoveBackwardCommand * -> -> -> 7 `i `ui `ux -> -> # *U &U _MoveBackwardCommand `ui `ux -> _pwm `uc ]
-"354
-[; ;motorMain.c: 354:     MoveBackwardCommand[9] = pwm;
+"353
+[; ;motorMain.c: 353:     MoveBackwardCommand[9] = pwm;
 [e = *U + &U _MoveBackwardCommand * -> -> -> 9 `i `ui `ux -> -> # *U &U _MoveBackwardCommand `ui `ux -> _pwm `uc ]
-"355
-[; ;motorMain.c: 355:     currentCommand.toSend = MoveBackwardCommand;
+"354
+[; ;motorMain.c: 354:     currentCommand.toSend = MoveBackwardCommand;
 [e = . _currentCommand 3 &U _MoveBackwardCommand ]
-"356
-[; ;motorMain.c: 356:     PIE3bits.TXIE = 1;
+"355
+[; ;motorMain.c: 355:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"357
-[; ;motorMain.c: 357: }
+"356
+[; ;motorMain.c: 356: }
 [e :UE 1755 ]
 }
-"359
-[; ;motorMain.c: 359: void CreateBreak(){
+"358
+[; ;motorMain.c: 358: void CreateBreak(){
 [v _CreateBreak `(v ~T0 @X0 1 ef ]
 {
 [e :U _CreateBreak ]
 [f ]
-"360
-[; ;motorMain.c: 360:     currentCommand.sendId = DRIVE_COMMAND;
+"359
+[; ;motorMain.c: 359:     currentCommand.sendId = DRIVE_COMMAND;
 [e = . _currentCommand 2 _DRIVE_COMMAND ]
-"361
-[; ;motorMain.c: 361:     currentCommand.sendIt = 0;
+"360
+[; ;motorMain.c: 360:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"362
-[; ;motorMain.c: 362:     currentCommand.sendLimit = 10;
+"361
+[; ;motorMain.c: 361:     currentCommand.sendLimit = 10;
 [e = . _currentCommand 0 -> 10 `i ]
-"363
-[; ;motorMain.c: 363:     currentCommand.receiveId = 0;
+"362
+[; ;motorMain.c: 362:     currentCommand.receiveId = 0;
 [e = . _currentCommand 6 -> 0 `i ]
-"364
-[; ;motorMain.c: 364:     currentCommand.receiveLimit = 0;
+"363
+[; ;motorMain.c: 363:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"365
-[; ;motorMain.c: 365:     currentCommand.receiveIt = 0;
+"364
+[; ;motorMain.c: 364:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"366
-[; ;motorMain.c: 366:     currentCommand.done = 0;
+"365
+[; ;motorMain.c: 365:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"368
-[; ;motorMain.c: 368:     currentCommand.toSend = Break;
+"367
+[; ;motorMain.c: 367:     currentCommand.toSend = Break;
 [e = . _currentCommand 3 &U _Break ]
-"369
-[; ;motorMain.c: 369:     PIE3bits.TXIE = 1;
+"368
+[; ;motorMain.c: 368:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"370
-[; ;motorMain.c: 370: }
+"369
+[; ;motorMain.c: 369: }
 [e :UE 1756 ]
 }
-"372
-[; ;motorMain.c: 372: void CreateControlsCommand(){
+"371
+[; ;motorMain.c: 371: void CreateControlsCommand(){
 [v _CreateControlsCommand `(v ~T0 @X0 1 ef ]
 {
 [e :U _CreateControlsCommand ]
 [f ]
-"373
-[; ;motorMain.c: 373:     currentCommand.receiveId = CONTROL_INPUT;
+"372
+[; ;motorMain.c: 372:     currentCommand.receiveId = CONTROL_INPUT;
 [e = . _currentCommand 6 _CONTROL_INPUT ]
-"374
-[; ;motorMain.c: 374:     currentCommand.receiveLimit = 26;
+"373
+[; ;motorMain.c: 373:     currentCommand.receiveLimit = 26;
 [e = . _currentCommand 5 -> 26 `i ]
-"375
-[; ;motorMain.c: 375:     currentCommand.receiveIt = 0;
+"374
+[; ;motorMain.c: 374:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"376
-[; ;motorMain.c: 376:     currentCommand.sendId = CONTROL_OUTPUT;
+"375
+[; ;motorMain.c: 375:     currentCommand.sendId = CONTROL_OUTPUT;
 [e = . _currentCommand 2 _CONTROL_OUTPUT ]
-"377
-[; ;motorMain.c: 377:     currentCommand.toSend = (unsigned char*) GetUserDataCommand;
+"376
+[; ;motorMain.c: 376:     currentCommand.toSend = (unsigned char*) GetUserDataCommand;
 [e = . _currentCommand 3 &U _GetUserDataCommand ]
-"378
-[; ;motorMain.c: 378:     currentCommand.sendIt = 0;
+"377
+[; ;motorMain.c: 377:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"379
-[; ;motorMain.c: 379:     currentCommand.sendLimit = 6;
+"378
+[; ;motorMain.c: 378:     currentCommand.sendLimit = 6;
 [e = . _currentCommand 0 -> 6 `i ]
-"380
-[; ;motorMain.c: 380:     currentCommand.done = 0;
+"379
+[; ;motorMain.c: 379:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"381
-[; ;motorMain.c: 381:     PIE3bits.TXIE = 1;
+"380
+[; ;motorMain.c: 380:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"382
-[; ;motorMain.c: 382: }
+"381
+[; ;motorMain.c: 381: }
 [e :UE 1757 ]
 }
-"384
-[; ;motorMain.c: 384: void CreateLaserCommand(){
+"383
+[; ;motorMain.c: 383: void CreateLaserCommand(){
 [v _CreateLaserCommand `(v ~T0 @X0 1 ef ]
 {
 [e :U _CreateLaserCommand ]
 [f ]
-"385
-[; ;motorMain.c: 385:     currentCommand.receiveId = LASER_COMMAND;
+"384
+[; ;motorMain.c: 384:     currentCommand.receiveId = LASER_COMMAND;
 [e = . _currentCommand 6 _LASER_COMMAND ]
-"386
-[; ;motorMain.c: 386:     currentCommand.receiveLimit = 0;
+"385
+[; ;motorMain.c: 385:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"387
-[; ;motorMain.c: 387:     currentCommand.receiveIt = 0;
+"386
+[; ;motorMain.c: 386:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"388
-[; ;motorMain.c: 388:     currentCommand.sendId = LASER_COMMAND;
+"387
+[; ;motorMain.c: 387:     currentCommand.sendId = LASER_COMMAND;
 [e = . _currentCommand 2 _LASER_COMMAND ]
-"389
-[; ;motorMain.c: 389:     currentCommand.toSend = (unsigned char*) FireLaserCommand;
+"388
+[; ;motorMain.c: 388:     currentCommand.toSend = (unsigned char*) FireLaserCommand;
 [e = . _currentCommand 3 &U _FireLaserCommand ]
-"390
-[; ;motorMain.c: 390:     currentCommand.sendIt = 0;
+"389
+[; ;motorMain.c: 389:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"391
-[; ;motorMain.c: 391:     currentCommand.sendLimit = 7;
+"390
+[; ;motorMain.c: 390:     currentCommand.sendLimit = 7;
 [e = . _currentCommand 0 -> 7 `i ]
-"392
-[; ;motorMain.c: 392:     currentCommand.done = 0;
+"391
+[; ;motorMain.c: 391:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"393
-[; ;motorMain.c: 393:     PIE3bits.TXIE = 1;
+"392
+[; ;motorMain.c: 392:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"394
-[; ;motorMain.c: 394: }
+"393
+[; ;motorMain.c: 393: }
 [e :UE 1758 ]
 }
-"396
-[; ;motorMain.c: 396: void CreateProcessCommand(){
+"395
+[; ;motorMain.c: 395: void CreateProcessCommand(){
 [v _CreateProcessCommand `(v ~T0 @X0 1 ef ]
 {
 [e :U _CreateProcessCommand ]
 [f ]
-"397
-[; ;motorMain.c: 397:     if(controls.switchC == SWITCH_MAX){
+"396
+[; ;motorMain.c: 396:     if(controls.switchC == SWITCH_MAX){
 [e $ ! == -> . _controls 6 `ui _SWITCH_MAX 1760  ]
 {
-"398
-[; ;motorMain.c: 398:         ProcessOreCommand[6] =3;
+"397
+[; ;motorMain.c: 397:         ProcessOreCommand[6] =3;
 [e = *U + &U _ProcessOreCommand * -> -> -> 6 `i `ui `ux -> -> # *U &U _ProcessOreCommand `ui `ux -> -> 3 `i `uc ]
-"399
-[; ;motorMain.c: 399:     }
+"398
+[; ;motorMain.c: 398:     }
 }
 [e $U 1761  ]
-"400
-[; ;motorMain.c: 400:     else if(controls.switchC == SWITCH_MID){
+"399
+[; ;motorMain.c: 399:     else if(controls.switchC == SWITCH_MID){
 [e :U 1760 ]
 [e $ ! == -> . _controls 6 `ui _SWITCH_MID 1762  ]
 {
-"401
-[; ;motorMain.c: 401:         ProcessOreCommand[6] = 1;
+"400
+[; ;motorMain.c: 400:         ProcessOreCommand[6] = 1;
 [e = *U + &U _ProcessOreCommand * -> -> -> 6 `i `ui `ux -> -> # *U &U _ProcessOreCommand `ui `ux -> -> 1 `i `uc ]
-"402
-[; ;motorMain.c: 402:     }
+"401
+[; ;motorMain.c: 401:     }
 }
 [e $U 1763  ]
-"403
-[; ;motorMain.c: 403:     else{
+"402
+[; ;motorMain.c: 402:     else{
 [e :U 1762 ]
 {
-"404
-[; ;motorMain.c: 404:         ProcessOreCommand[6] = 2;
+"403
+[; ;motorMain.c: 403:         ProcessOreCommand[6] = 2;
 [e = *U + &U _ProcessOreCommand * -> -> -> 6 `i `ui `ux -> -> # *U &U _ProcessOreCommand `ui `ux -> -> 2 `i `uc ]
-"405
-[; ;motorMain.c: 405:     }
+"404
+[; ;motorMain.c: 404:     }
 }
 [e :U 1763 ]
 [e :U 1761 ]
-"406
-[; ;motorMain.c: 406:     currentCommand.receiveId = LASER_COMMAND;
+"405
+[; ;motorMain.c: 405:     currentCommand.receiveId = LASER_COMMAND;
 [e = . _currentCommand 6 _LASER_COMMAND ]
-"407
-[; ;motorMain.c: 407:     currentCommand.receiveLimit = 0;
+"406
+[; ;motorMain.c: 406:     currentCommand.receiveLimit = 0;
 [e = . _currentCommand 5 -> 0 `i ]
-"408
-[; ;motorMain.c: 408:     currentCommand.receiveIt = 0;
+"407
+[; ;motorMain.c: 407:     currentCommand.receiveIt = 0;
 [e = . _currentCommand 4 -> 0 `i ]
-"409
-[; ;motorMain.c: 409:     currentCommand.sendId = LASER_COMMAND;
+"408
+[; ;motorMain.c: 408:     currentCommand.sendId = LASER_COMMAND;
 [e = . _currentCommand 2 _LASER_COMMAND ]
-"410
-[; ;motorMain.c: 410:     currentCommand.toSend = (unsigned char*) ProcessOreCommand;
+"409
+[; ;motorMain.c: 409:     currentCommand.toSend = (unsigned char*) ProcessOreCommand;
 [e = . _currentCommand 3 &U _ProcessOreCommand ]
-"411
-[; ;motorMain.c: 411:     currentCommand.sendIt = 0;
+"410
+[; ;motorMain.c: 410:     currentCommand.sendIt = 0;
 [e = . _currentCommand 1 -> 0 `i ]
-"412
-[; ;motorMain.c: 412:     currentCommand.sendLimit = 7;
+"411
+[; ;motorMain.c: 411:     currentCommand.sendLimit = 7;
 [e = . _currentCommand 0 -> 7 `i ]
-"413
-[; ;motorMain.c: 413:     currentCommand.done = 0;
+"412
+[; ;motorMain.c: 412:     currentCommand.done = 0;
 [e = . _currentCommand 7 -> -> 0 `i `uc ]
-"414
-[; ;motorMain.c: 414:     PIE3bits.TXIE = 1;
+"413
+[; ;motorMain.c: 413:     PIE3bits.TXIE = 1;
 [e = . . _PIE3bits 0 4 -> -> 1 `i `uc ]
-"415
-[; ;motorMain.c: 415: }
+"414
+[; ;motorMain.c: 414: }
 [e :UE 1759 ]
 }
-"417
-[; ;motorMain.c: 417: void SetUpPumpArm(){
+"416
+[; ;motorMain.c: 416: void SetUpPumpArm(){
 [v _SetUpPumpArm `(v ~T0 @X0 1 ef ]
 {
 [e :U _SetUpPumpArm ]
 [f ]
-"420
-[; ;motorMain.c: 420:     TRISBbits.TRISB0 = 0;
+"419
+[; ;motorMain.c: 419:     TRISBbits.TRISB0 = 0;
 [e = . . _TRISBbits 0 0 -> -> 0 `i `uc ]
-"421
-[; ;motorMain.c: 421:     TRISBbits.TRISB1 = 0;
+"420
+[; ;motorMain.c: 420:     TRISBbits.TRISB1 = 0;
 [e = . . _TRISBbits 0 1 -> -> 0 `i `uc ]
-"422
-[; ;motorMain.c: 422:     ANSELBbits.ANSB0 = 0;
+"421
+[; ;motorMain.c: 421:     ANSELBbits.ANSB0 = 0;
 [e = . . _ANSELBbits 0 0 -> -> 0 `i `uc ]
-"423
-[; ;motorMain.c: 423:     ANSELBbits.ANSB1 = 0;
+"422
+[; ;motorMain.c: 422:     ANSELBbits.ANSB1 = 0;
 [e = . . _ANSELBbits 0 1 -> -> 0 `i `uc ]
-"425
-[; ;motorMain.c: 425:     LATBbits.LATB0 = 0;
+"424
+[; ;motorMain.c: 424:     LATBbits.LATB0 = 0;
 [e = . . _LATBbits 0 0 -> -> 0 `i `uc ]
-"426
-[; ;motorMain.c: 426:     LATBbits.LATB1 = 0;
+"425
+[; ;motorMain.c: 425:     LATBbits.LATB1 = 0;
 [e = . . _LATBbits 0 1 -> -> 0 `i `uc ]
-"428
-[; ;motorMain.c: 428: }
+"427
+[; ;motorMain.c: 427: }
 [e :UE 1764 ]
 }
-"430
-[; ;motorMain.c: 430: void SetUpPump(){
+"429
+[; ;motorMain.c: 429: void SetUpPump(){
 [v _SetUpPump `(v ~T0 @X0 1 ef ]
 {
 [e :U _SetUpPump ]
 [f ]
-"433
-[; ;motorMain.c: 433:     TRISBbits.TRISB2 = 0;
+"432
+[; ;motorMain.c: 432:     TRISBbits.TRISB2 = 0;
 [e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
-"434
-[; ;motorMain.c: 434:     TRISBbits.TRISB3 = 0;
+"433
+[; ;motorMain.c: 433:     TRISBbits.TRISB3 = 0;
 [e = . . _TRISBbits 0 3 -> -> 0 `i `uc ]
-"435
-[; ;motorMain.c: 435:     ANSELBbits.ANSB2 = 0;
+"434
+[; ;motorMain.c: 434:     ANSELBbits.ANSB2 = 0;
 [e = . . _ANSELBbits 0 2 -> -> 0 `i `uc ]
-"436
-[; ;motorMain.c: 436:     ANSELBbits.ANSB3 = 0;
+"435
+[; ;motorMain.c: 435:     ANSELBbits.ANSB3 = 0;
 [e = . . _ANSELBbits 0 3 -> -> 0 `i `uc ]
-"438
-[; ;motorMain.c: 438:     LATBbits.LATB2 = 0;
+"437
+[; ;motorMain.c: 437:     LATBbits.LATB2 = 0;
 [e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
-"439
-[; ;motorMain.c: 439:     LATBbits.LATB3 = 0;
+"438
+[; ;motorMain.c: 438:     LATBbits.LATB3 = 0;
 [e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
-"440
-[; ;motorMain.c: 440: }
+"439
+[; ;motorMain.c: 439: }
 [e :UE 1765 ]
 }
-"442
-[; ;motorMain.c: 442: void MovePumpArm(int switchValue){
+"441
+[; ;motorMain.c: 441: void MovePumpArm(int switchValue){
 [v _MovePumpArm `(v ~T0 @X0 1 ef1`i ]
 {
 [e :U _MovePumpArm ]
 [v _switchValue `i ~T0 @X0 1 r1 ]
 [f ]
-"443
-[; ;motorMain.c: 443:     LATBbits.LATB0 = 0;
+"442
+[; ;motorMain.c: 442:     LATBbits.LATB0 = 0;
 [e = . . _LATBbits 0 0 -> -> 0 `i `uc ]
-"444
-[; ;motorMain.c: 444:     LATBbits.LATB1 = 0;
+"443
+[; ;motorMain.c: 443:     LATBbits.LATB1 = 0;
 [e = . . _LATBbits 0 1 -> -> 0 `i `uc ]
-"445
-[; ;motorMain.c: 445:     if(switchValue == SWITCH_MIN){
+"444
+[; ;motorMain.c: 444:     if(switchValue == SWITCH_MIN){
 [e $ ! == -> _switchValue `ui _SWITCH_MIN 1767  ]
 {
-"446
-[; ;motorMain.c: 446:             LATBbits.LATB0 = 1;
+"445
+[; ;motorMain.c: 445:             LATBbits.LATB0 = 1;
 [e = . . _LATBbits 0 0 -> -> 1 `i `uc ]
-"447
-[; ;motorMain.c: 447:             LATBbits.LATB1 = 0;
+"446
+[; ;motorMain.c: 446:             LATBbits.LATB1 = 0;
 [e = . . _LATBbits 0 1 -> -> 0 `i `uc ]
-"448
-[; ;motorMain.c: 448:     }
+"447
+[; ;motorMain.c: 447:     }
 }
 [e $U 1768  ]
-"449
-[; ;motorMain.c: 449:     else if(switchValue == SWITCH_MAX){
+"448
+[; ;motorMain.c: 448:     else if(switchValue == SWITCH_MAX){
 [e :U 1767 ]
 [e $ ! == -> _switchValue `ui _SWITCH_MAX 1769  ]
 {
-"450
-[; ;motorMain.c: 450:             LATBbits.LATB0 = 0;
+"449
+[; ;motorMain.c: 449:             LATBbits.LATB0 = 0;
 [e = . . _LATBbits 0 0 -> -> 0 `i `uc ]
-"451
-[; ;motorMain.c: 451:             LATBbits.LATB1 = 1;
+"450
+[; ;motorMain.c: 450:             LATBbits.LATB1 = 1;
 [e = . . _LATBbits 0 1 -> -> 1 `i `uc ]
-"452
-[; ;motorMain.c: 452:     }
+"451
+[; ;motorMain.c: 451:     }
 }
 [e :U 1769 ]
 [e :U 1768 ]
-"453
-[; ;motorMain.c: 453: }
+"452
+[; ;motorMain.c: 452: }
 [e :UE 1766 ]
 }
-"455
-[; ;motorMain.c: 455: void ActivatePump(int switchValue){
+"454
+[; ;motorMain.c: 454: void ActivatePump(int switchValue){
 [v _ActivatePump `(v ~T0 @X0 1 ef1`i ]
 {
 [e :U _ActivatePump ]
 [v _switchValue `i ~T0 @X0 1 r1 ]
 [f ]
+"455
+[; ;motorMain.c: 455:     LATBbits.LATB2 = 0;
+[e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
 "456
-[; ;motorMain.c: 456:     if(switchValue <= SWITCH_MIN){
+[; ;motorMain.c: 456:     LATBbits.LATB3 = 0;
+[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+"457
+[; ;motorMain.c: 457:     if(switchValue <= SWITCH_MIN){
 [e $ ! <= -> _switchValue `ui _SWITCH_MIN 1771  ]
 {
-"457
-[; ;motorMain.c: 457:         LATBbits.LATB2 = 1;
-[e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
 "458
-[; ;motorMain.c: 458:         LATBbits.LATB3 = 0;
-[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+[; ;motorMain.c: 458:         LATBbits.LATB2 = 1;
+[e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
 "459
-[; ;motorMain.c: 459:     }
+[; ;motorMain.c: 459:         LATBbits.LATB3 = 0;
+[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+"460
+[; ;motorMain.c: 460:     }
 }
 [e $U 1772  ]
-"460
-[; ;motorMain.c: 460:     else{
+"461
+[; ;motorMain.c: 461:     else{
 [e :U 1771 ]
 {
-"461
-[; ;motorMain.c: 461:         LATBbits.LATB2 = 0;
-[e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
 "462
-[; ;motorMain.c: 462:         LATBbits.LATB3 = 0;
-[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+[; ;motorMain.c: 462:         LATBbits.LATB2 = 0;
+[e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
 "463
-[; ;motorMain.c: 463:     }
+[; ;motorMain.c: 463:         LATBbits.LATB3 = 0;
+[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+"464
+[; ;motorMain.c: 464:     }
 }
 [e :U 1772 ]
-"464
-[; ;motorMain.c: 464: }
+"465
+[; ;motorMain.c: 465: }
 [e :UE 1770 ]
 }
 [v $root$_myFunction `(v ~T0 @X0 0 e ]
-"465
-[; ;motorMain.c: 465: void __attribute__((picinterrupt(("")))) myFunction(){
+"466
+[; ;motorMain.c: 466: void __attribute__((picinterrupt(("")))) myFunction(){
 [v _myFunction `(v ~T2 @X0 1 ef ]
 {
 [e :U _myFunction ]
 [f ]
-"466
-[; ;motorMain.c: 466:     if(PIR3bits.SSP1IF == 1){
+"467
+[; ;motorMain.c: 467:     if(PIR3bits.SSP1IF == 1){
 [e $ ! == -> . . _PIR3bits 0 0 `i -> 1 `i 1774  ]
 {
-"468
-[; ;motorMain.c: 468:         newI2CMessage = 1;
-[e = _newI2CMessage -> -> 1 `i `uc ]
 "469
-[; ;motorMain.c: 469:         PIR3bits.SSP1IF = 0;
-[e = . . _PIR3bits 0 0 -> -> 0 `i `uc ]
+[; ;motorMain.c: 469:         newI2CMessage = 1;
+[e = _newI2CMessage -> -> 1 `i `uc ]
 "470
-[; ;motorMain.c: 470:     }
+[; ;motorMain.c: 470:         PIR3bits.SSP1IF = 0;
+[e = . . _PIR3bits 0 0 -> -> 0 `i `uc ]
+"471
+[; ;motorMain.c: 471:     }
 }
 [e :U 1774 ]
-"471
-[; ;motorMain.c: 471:     if(PIR3bits.RCIF == 1){
+"472
+[; ;motorMain.c: 472:     if(PIR3bits.RCIF == 1){
 [e $ ! == -> . . _PIR3bits 0 5 `i -> 1 `i 1775  ]
 {
-"472
-[; ;motorMain.c: 472:         int input = RCREG;
+"473
+[; ;motorMain.c: 473:         int input = RCREG;
 [v _input `i ~T0 @X0 1 a ]
 [e = _input -> _RCREG `i ]
-"473
-[; ;motorMain.c: 473:         if(currentCommand.receiveId == CONTROL_INPUT){
+"474
+[; ;motorMain.c: 474:         if(currentCommand.receiveId == CONTROL_INPUT){
 [e $ ! == . _currentCommand 6 _CONTROL_INPUT 1776  ]
 {
-"474
-[; ;motorMain.c: 474:             GetControllerInput(input);
-[e ( _GetControllerInput (1 _input ]
 "475
-[; ;motorMain.c: 475:             currentCommand.receiveIt = currentCommand.receiveIt + 1;
-[e = . _currentCommand 4 + . _currentCommand 4 -> 1 `i ]
+[; ;motorMain.c: 475:             GetControllerInput(input);
+[e ( _GetControllerInput (1 _input ]
 "476
-[; ;motorMain.c: 476:         }
+[; ;motorMain.c: 476:             currentCommand.receiveIt = currentCommand.receiveIt + 1;
+[e = . _currentCommand 4 + . _currentCommand 4 -> 1 `i ]
+"477
+[; ;motorMain.c: 477:         }
 }
 [e :U 1776 ]
-"477
-[; ;motorMain.c: 477:         if(currentCommand.receiveIt >= currentCommand.receiveLimit){
+"478
+[; ;motorMain.c: 478:         if(currentCommand.receiveIt >= currentCommand.receiveLimit){
 [e $ ! >= . _currentCommand 4 . _currentCommand 5 1777  ]
 {
-"478
-[; ;motorMain.c: 478:             currentCommand.done = 1;
-[e = . _currentCommand 7 -> -> 1 `i `uc ]
 "479
-[; ;motorMain.c: 479:         }
+[; ;motorMain.c: 479:             currentCommand.done = 1;
+[e = . _currentCommand 7 -> -> 1 `i `uc ]
+"480
+[; ;motorMain.c: 480:         }
 }
 [e :U 1777 ]
-"480
-[; ;motorMain.c: 480:         inputStage++;
-[e ++ _inputStage -> 1 `i ]
 "481
-[; ;motorMain.c: 481:         PIR3bits.RCIF =0;
+[; ;motorMain.c: 481:         inputStage++;
+[e ++ _inputStage -> 1 `i ]
+"482
+[; ;motorMain.c: 482:         PIR3bits.RCIF =0;
 [e = . . _PIR3bits 0 5 -> -> 0 `i `uc ]
-"483
-[; ;motorMain.c: 483:     }
+"484
+[; ;motorMain.c: 484:     }
 }
 [e :U 1775 ]
-"484
-[; ;motorMain.c: 484:     if(PIR3bits.TXIF == 1){
+"485
+[; ;motorMain.c: 485:     if(PIR3bits.TXIF == 1){
 [e $ ! == -> . . _PIR3bits 0 4 `i -> 1 `i 1778  ]
 {
-"485
-[; ;motorMain.c: 485:         if(currentCommand.sendIt >= currentCommand.sendLimit){
+"486
+[; ;motorMain.c: 486:         if(currentCommand.sendIt >= currentCommand.sendLimit){
 [e $ ! >= . _currentCommand 1 . _currentCommand 0 1779  ]
 {
-"486
-[; ;motorMain.c: 486:             PIE3bits.TXIE = 0;
-[e = . . _PIE3bits 0 4 -> -> 0 `i `uc ]
 "487
-[; ;motorMain.c: 487:             if(currentCommand.receiveLimit <= 0){
+[; ;motorMain.c: 487:             PIE3bits.TXIE = 0;
+[e = . . _PIE3bits 0 4 -> -> 0 `i `uc ]
+"488
+[; ;motorMain.c: 488:             if(currentCommand.receiveLimit <= 0){
 [e $ ! <= . _currentCommand 5 -> 0 `i 1780  ]
 {
-"488
-[; ;motorMain.c: 488:                 currentCommand.done = 1;
-[e = . _currentCommand 7 -> -> 1 `i `uc ]
 "489
-[; ;motorMain.c: 489:             }
+[; ;motorMain.c: 489:                 currentCommand.done = 1;
+[e = . _currentCommand 7 -> -> 1 `i `uc ]
+"490
+[; ;motorMain.c: 490:             }
 }
 [e :U 1780 ]
-"490
-[; ;motorMain.c: 490:         }
+"491
+[; ;motorMain.c: 491:         }
 }
 [e $U 1781  ]
-"491
-[; ;motorMain.c: 491:         else{
+"492
+[; ;motorMain.c: 492:         else{
 [e :U 1779 ]
 {
-"492
-[; ;motorMain.c: 492:             TX1REGbits.TX1REG = currentCommand.toSend[currentCommand.sendIt];
-[e = . . _TX1REGbits 0 0 *U + . _currentCommand 3 * -> . _currentCommand 1 `x -> -> # *U . _currentCommand 3 `i `x ]
 "493
-[; ;motorMain.c: 493:             currentCommand.sendIt = currentCommand.sendIt + 1;
-[e = . _currentCommand 1 + . _currentCommand 1 -> 1 `i ]
+[; ;motorMain.c: 493:             TX1REGbits.TX1REG = currentCommand.toSend[currentCommand.sendIt];
+[e = . . _TX1REGbits 0 0 *U + . _currentCommand 3 * -> . _currentCommand 1 `x -> -> # *U . _currentCommand 3 `i `x ]
 "494
-[; ;motorMain.c: 494:         }
+[; ;motorMain.c: 494:             currentCommand.sendIt = currentCommand.sendIt + 1;
+[e = . _currentCommand 1 + . _currentCommand 1 -> 1 `i ]
+"495
+[; ;motorMain.c: 495:         }
 }
 [e :U 1781 ]
-"495
-[; ;motorMain.c: 495:         PIR3bits.TXIF = 0;
-[e = . . _PIR3bits 0 4 -> -> 0 `i `uc ]
 "496
-[; ;motorMain.c: 496:     }
+[; ;motorMain.c: 496:         PIR3bits.TXIF = 0;
+[e = . . _PIR3bits 0 4 -> -> 0 `i `uc ]
+"497
+[; ;motorMain.c: 497:     }
 }
 [e :U 1778 ]
-"498
-[; ;motorMain.c: 498: }
+"499
+[; ;motorMain.c: 499: }
 [e :UE 1773 ]
 }

@@ -189,6 +189,8 @@ void main(void) {
     INTCONbits.GIE = 1;
 
     
+    
+    
     while(1){
         if(controls.switchA <= SWITCH_MIN){
             //LATAbits.LATA0 = 1;
@@ -302,8 +304,8 @@ void CreateTurnRightCommmand(unsigned int pwm){
     currentCommand.receiveIt = 0;
     currentCommand.done = 0;
     
-    TurnRightCommand[7] = pwm;
-    TurnRightCommand[9] = pwm;
+    TurnRightCommand[7] = 100;
+    TurnRightCommand[9] = 100;
     currentCommand.toSend = TurnRightCommand;
     PIE3bits.TXIE = 1;
 }
@@ -317,8 +319,8 @@ void CreateTurnLeftCommmand(unsigned int pwm){
     currentCommand.receiveIt = 0;
     currentCommand.done = 0;
     
-    TurnLeftCommand[7] = pwm;
-    TurnLeftCommand[9] = pwm;
+    TurnLeftCommand[7] = 100;
+    TurnLeftCommand[9] = 100;
     currentCommand.toSend = TurnLeftCommand;
     PIE3bits.TXIE = 1;
 }
@@ -450,6 +452,8 @@ void MovePumpArm(int switchValue){
 }
 
 void ActivatePump(int switchValue){
+    LATBbits.LATB2 = 0;
+    LATBbits.LATB3 = 0;
     if(switchValue <= SWITCH_MIN){
         LATBbits.LATB2 = 1;
         LATBbits.LATB3 = 0;
